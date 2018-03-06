@@ -1,16 +1,15 @@
-# Compiled class file
+# Output
 *.class
-
-# Log file
-*.log
-
-# Package Files #
 *.jar
 *.war
 *.ear
 *.zip
 *.tar.gz
 *.rar
+/target
+
+# Log file
+*.log
 
 # IDE
 *.iml
