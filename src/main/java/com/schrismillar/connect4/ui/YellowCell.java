@@ -5,7 +5,7 @@ public class YellowCell implements Cell {
 
     @Override
     public String value() {
-        return yellow(SQUARE);
+        return yellow(VALUE_CHARACTER);
     }
 
     private String yellow(String string) {

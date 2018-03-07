@@ -7,6 +7,6 @@ import org.junit.Test;
 public class RedCellTest {
     @Test
     public void valueReturnsSquareExtendedAnsiCharWithBoldRedTextEscapeSequence() {
-        assertEquals("\u001B[31;1m■\u001B[0m", new RedCell().value());
+        assertEquals("\u001B[31;1m#\u001B[0m", new RedCell().value());
     }
 }
