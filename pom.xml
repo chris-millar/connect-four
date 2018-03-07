@@ -31,7 +31,7 @@
                 <configuration>
                     <archive>
                     <manifest>
-                        <mainClass>com.schrismillar.connect4.HelloWorld</mainClass>
+                        <mainClass>com.schrismillar.connect4.DisplaySomeGrid</mainClass>
                     </manifest>
                     </archive>
                 </configuration>
