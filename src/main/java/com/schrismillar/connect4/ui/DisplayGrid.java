@@ -3,11 +3,11 @@ package com.schrismillar.connect4.ui;
 import java.util.List;
 import java.util.function.Supplier;
 
-public class Grid {
+public class DisplayGrid {
     private static final String NEW_LINE = "\n";
-    private final List<List<Cell>> cells;
+    private final List<List<DisplayCell>> cells;
 
-    public Grid(List<List<Cell>> cells) {
+    public DisplayGrid(List<List<DisplayCell>> cells) {
         this.cells = cells;
     }
 
@@ -38,7 +38,7 @@ public class Grid {
         };
     }
 
-    private Supplier<StringBuffer> valuesInGridRow(List<Cell> row) {
+    private Supplier<StringBuffer> valuesInGridRow(List<DisplayCell> row) {
         return () -> {
             StringBuffer lineBuffer = new StringBuffer();
             row.forEach(cell -> lineBuffer.append("|").append("(").append(cell.value()).append(")").append("|"));

@@ -1,6 +1,6 @@
 package com.schrismillar.connect4.ui;
 
-public class YellowCell implements Cell {
+public class YellowDisplayCell implements DisplayCell {
     private static final String ANSI_BOLD_YELLOW = "\u001B[33;1m";
 
     @Override

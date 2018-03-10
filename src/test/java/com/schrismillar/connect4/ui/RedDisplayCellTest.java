@@ -4,9 +4,9 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class RedCellTest {
+public class RedDisplayCellTest {
     @Test
     public void valueReturnsSquareExtendedAnsiCharWithBoldRedTextEscapeSequence() {
-        assertEquals("\u001B[31;1m#\u001B[0m", new RedCell().value());
+        assertEquals("\u001B[31;1m#\u001B[0m", new RedDisplayCell().value());
     }
 }

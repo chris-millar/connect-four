@@ -4,11 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class EmptyCellTest {
+public class EmptyDisplayCellTest {
 
     @Test
     public void emptyCellValueIsASingleSpace() {
-        assertEquals(" ", new EmptyCell().value());
+        assertEquals(" ", new EmptyDisplayCell().value());
     }
 
 }

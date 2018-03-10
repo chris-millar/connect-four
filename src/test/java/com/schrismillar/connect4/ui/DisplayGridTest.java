@@ -9,21 +9,21 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class GridTest {
-    private static final Cell T = () -> "T";
-    private static final Cell D = () -> "D";
-    private static final Cell A = () -> "A";
+public class DisplayGridTest {
+    private static final DisplayCell T = () -> "T";
+    private static final DisplayCell D = () -> "D";
+    private static final DisplayCell A = () -> "A";
 
     @Test
     public void displayValueReturnsEmptyStringIfNoCellsProvided() {
-        assertEquals("", new Grid(emptyList()).displayValue());
+        assertEquals("", new DisplayGrid(emptyList()).displayValue());
     }
 
     @Test
     public void displayValueReturnsGridWithSingleCellIfOnlyOneCellProvided() {
-        List<List<Cell>> cells = singletonList(singletonList(T));
+        List<List<DisplayCell>> cells = singletonList(singletonList(T));
 
-        String grid = new Grid(cells).displayValue();
+        String grid = new DisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "\n" +
@@ -34,9 +34,9 @@ public class GridTest {
 
     @Test
     public void displayValueReturnsGridWithDifferentCellValues() {
-        List<List<Cell>> cells = singletonList(asList(T, D));
+        List<List<DisplayCell>> cells = singletonList(asList(T, D));
 
-        String grid = new Grid(cells).displayValue();
+        String grid = new DisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "\n" +
@@ -47,10 +47,10 @@ public class GridTest {
 
     @Test
     public void displayValueReturns2x2Grid() {
-        List<List<Cell>> cells = asList(asList(T, D),
+        List<List<DisplayCell>> cells = asList(asList(T, D),
                                         asList(D, T));
 
-        String grid = new Grid(cells).displayValue();
+        String grid = new DisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "\n" +
@@ -64,11 +64,11 @@ public class GridTest {
 
     @Test
     public void displayValueReturns3x3Grid() {
-        List<List<Cell>> cells = asList(asList(T, D, A),
+        List<List<DisplayCell>> cells = asList(asList(T, D, A),
                                         asList(A, A, A),
                                         asList(T, T, D));
 
-        String grid = new Grid(cells).displayValue();
+        String grid = new DisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "|---|" +"\n" +
@@ -85,11 +85,11 @@ public class GridTest {
 
     @Test
     public void displayValueReturnsGridWithAnyNumberOfColumnsPerRow() {
-        List<List<Cell>> cells = asList(asList(T, D, A),
+        List<List<DisplayCell>> cells = asList(asList(T, D, A),
                                         singletonList(A),
                                         asList(T, T));
 
-        String grid = new Grid(cells).displayValue();
+        String grid = new DisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "|---|" +"\n" +
@@ -106,11 +106,11 @@ public class GridTest {
 
     @Test
     public void displayValueReturnsGridWithNothingForEmptyRows() {
-        List<List<Cell>> cells = asList(singletonList(T),
+        List<List<DisplayCell>> cells = asList(singletonList(T),
                                         emptyList(),
                                         singletonList(D));
 
-        String grid = new Grid(cells).displayValue();
+        String grid = new DisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "\n" +
