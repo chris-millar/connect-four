@@ -1,5 +1,7 @@
 package com.schrismillar.connect4.model;
 
+import static java.util.Arrays.asList;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,5 +43,9 @@ public class Grid {
             rowsOfOwners.add(rowOfOwners);
         }
         return rowsOfOwners;
+    }
+
+    public List<Cell> getFirstRow() {
+        return asList(cells[0]);
     }
 }

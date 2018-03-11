@@ -18,4 +18,15 @@ public class GridTest {
 
         assertEquals(asList(asList(STARTING_OWNER, STARTING_OWNER), asList(STARTING_OWNER, STARTING_OWNER)), owners);
     }
+
+    @Test
+    public void getFirstRowReturnsListOfFirstRowOfCells() {
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
+
+        List<Cell> firstRow = grid.getFirstRow();
+
+        Cell cell1 = new Cell(0, 0, STARTING_OWNER);
+        Cell cell2 = new Cell(0, 1, STARTING_OWNER) ;
+        assertEquals(asList(cell1, cell2), firstRow);
+    }
 }
