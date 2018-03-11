@@ -17,7 +17,7 @@ public class DisplaySomeGrid {
         Grid connectFourGrid = new Grid(6, 7, PlayerId.NONE);
         List<List<CellOwnerId>> playerIds = connectFourGrid.cellOwners();
         List<List<DisplayCell>> displayCells = transform(playerIds);
-        DisplayGrid displayGrid = new DisplayGrid(displayCells);
+        DisplayGrid displayGrid = new ListBasedDisplayGrid(displayCells);
         System.out.print(displayGrid.displayValue());
     }
 

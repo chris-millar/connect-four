@@ -9,21 +9,21 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class DisplayGridTest {
+public class ListBasedDisplayGridTest {
     private static final DisplayCell T = () -> "T";
     private static final DisplayCell D = () -> "D";
     private static final DisplayCell A = () -> "A";
 
     @Test
     public void displayValueReturnsEmptyStringIfNoCellsProvided() {
-        assertEquals("", new DisplayGrid(emptyList()).displayValue());
+        assertEquals("", new ListBasedDisplayGrid(emptyList()).displayValue());
     }
 
     @Test
     public void displayValueReturnsGridWithSingleCellIfOnlyOneCellProvided() {
         List<List<DisplayCell>> cells = singletonList(singletonList(T));
 
-        String grid = new DisplayGrid(cells).displayValue();
+        String grid = new ListBasedDisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "\n" +
@@ -36,7 +36,7 @@ public class DisplayGridTest {
     public void displayValueReturnsGridWithDifferentCellValues() {
         List<List<DisplayCell>> cells = singletonList(asList(T, D));
 
-        String grid = new DisplayGrid(cells).displayValue();
+        String grid = new ListBasedDisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "\n" +
@@ -50,7 +50,7 @@ public class DisplayGridTest {
         List<List<DisplayCell>> cells = asList(asList(T, D),
                                         asList(D, T));
 
-        String grid = new DisplayGrid(cells).displayValue();
+        String grid = new ListBasedDisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "\n" +
@@ -68,7 +68,7 @@ public class DisplayGridTest {
                                         asList(A, A, A),
                                         asList(T, T, D));
 
-        String grid = new DisplayGrid(cells).displayValue();
+        String grid = new ListBasedDisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "|---|" +"\n" +
@@ -89,7 +89,7 @@ public class DisplayGridTest {
                                         singletonList(A),
                                         asList(T, T));
 
-        String grid = new DisplayGrid(cells).displayValue();
+        String grid = new ListBasedDisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "|---|" + "|---|" +"\n" +
@@ -110,7 +110,7 @@ public class DisplayGridTest {
                                         emptyList(),
                                         singletonList(D));
 
-        String grid = new DisplayGrid(cells).displayValue();
+        String grid = new ListBasedDisplayGrid(cells).displayValue();
 
         String expectedGrid =
                 "|---|" + "\n" +
