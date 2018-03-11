@@ -6,6 +6,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GridData {
+    private static final int FIRST_ROW = 0;
+
     private final Cell[][] cells;
 
     public GridData(Cell[][] cells) {
@@ -53,5 +55,17 @@ public class GridData {
             stringBuilder.append("]");
         });
         return stringBuilder.toString();
+    }
+
+    public int height() {
+        return cells.length;
+    }
+
+    public int width() {
+        return cells[FIRST_ROW].length;
+    }
+
+    public Cell getCellAt(int row, int col) {
+        return cells[row][col];
     }
 }
