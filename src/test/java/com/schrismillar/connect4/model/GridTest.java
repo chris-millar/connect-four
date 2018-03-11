@@ -66,6 +66,19 @@ public class GridTest {
         assertEquals(asList(cell1, cell2), grid.getColumn(1));
     }
 
+    @Test
+    public void assignCellAtPositionToCreatesNewCellWithProvidedValuesAndPlacesInGridAtThatPosition() {
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
+
+        Cell createdCell = grid.assignCellAtPositionTo(0, 1, NEW_OWNER);
+
+        Cell expectedCell = new Cell(0, 1, NEW_OWNER);
+        assertEquals(expectedCell, createdCell);
+
+        Cell otherCellInRow = new Cell(0, 0, STARTING_OWNER);
+        assertEquals(asList(otherCellInRow, expectedCell), grid.getFirstRow());
+    }
+
     private static CellOwnerId cellOwnerIdWithToStringName(String toStringValue) {
         return new CellOwnerId() {
             @Override

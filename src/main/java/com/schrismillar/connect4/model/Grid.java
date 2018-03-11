@@ -58,4 +58,10 @@ public class Grid {
         }
         return column;
     }
+
+    public Cell assignCellAtPositionTo(int row, int col, CellOwnerId owner) {
+        Cell newCell = new Cell(row, col, owner);
+        cells[row][col] = newCell;
+        return newCell;
+    }
 }
