@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Grid {
+    private static final int FIRST_ROW = 0;
+
     private final Cell[][] cells;
 
     public Grid(int height, int width, CellOwnerId startingOwner) {
@@ -29,7 +31,7 @@ public class Grid {
     }
 
     private int width() {
-        return cells[0].length;
+        return cells[FIRST_ROW].length;
     }
 
 
@@ -46,6 +48,14 @@ public class Grid {
     }
 
     public List<Cell> getFirstRow() {
-        return asList(cells[0]);
+        return asList(cells[FIRST_ROW]);
+    }
+
+    public List<Cell> getColumn(int col) {
+        List<Cell> column = new LinkedList<>();
+        for (int row = 0; row < height(); row++) {
+            column.add(cells[row][col]);
+        }
+        return column;
     }
 }

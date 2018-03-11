@@ -29,4 +29,15 @@ public class GridTest {
         Cell cell2 = new Cell(0, 1, STARTING_OWNER) ;
         assertEquals(asList(cell1, cell2), firstRow);
     }
+
+    @Test
+    public void getColumnReturnsSpecifiedColumnOfCellsAsList() {
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
+
+        List<Cell> secondColumn = grid.getColumn(1);
+
+        Cell cell1 = new Cell(0, 1, STARTING_OWNER);
+        Cell cell2 = new Cell(1, 1, STARTING_OWNER);
+        assertEquals(asList(cell1, cell2), secondColumn);
+    }
 }
