@@ -21,6 +21,38 @@ public class GridTest {
     }
 
     @Test
+    public void getGridDataReturnsGridDataRepresentingTheCurrent2dArrayOfCellsThatMakeUpTheGrid() {
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
+
+        GridData gridData = grid.getGridData();
+
+        Cell[][] cells = new Cell[2][2];
+        cells[0][0] = new Cell(0, 0, STARTING_OWNER);
+        cells[0][1] = new Cell(0, 1, STARTING_OWNER);
+        cells[1][0] = new Cell(1, 0, STARTING_OWNER);
+        cells[1][1] = new Cell(1, 1, STARTING_OWNER);
+        GridData expectedGridData = new GridData(cells);
+        assertEquals(expectedGridData, gridData);
+    }
+
+    @Test
+    public void getGridDataReturnsGridDataWhoseArrayIsNotTheSameInstanceOfTheOneBackingGrid() {
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
+        GridData gridData = grid.getGridData();
+
+        grid.assignCellAtPositionTo(0, 0, NEW_OWNER);
+        grid.assignCellAtPositionTo(1, 1, NEW_OWNER);
+
+        Cell[][] cells = new Cell[2][2];
+        cells[0][0] = new Cell(0, 0, STARTING_OWNER);
+        cells[0][1] = new Cell(0, 1, STARTING_OWNER);
+        cells[1][0] = new Cell(1, 0, STARTING_OWNER);
+        cells[1][1] = new Cell(1, 1, STARTING_OWNER);
+        GridData expectedGridData = new GridData(cells);
+        assertEquals(expectedGridData, gridData);
+    }
+
+    @Test
     public void getFirstRowReturnsListOfFirstRowOfCells() {
         Grid grid = new Grid(2, 2, STARTING_OWNER);
 

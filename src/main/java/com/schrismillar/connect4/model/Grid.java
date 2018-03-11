@@ -2,8 +2,10 @@ package com.schrismillar.connect4.model;
 
 import static java.util.Arrays.asList;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Grid {
     private static final int FIRST_ROW = 0;
@@ -45,6 +47,17 @@ public class Grid {
             rowsOfOwners.add(rowOfOwners);
         }
         return rowsOfOwners;
+    }
+
+    public GridData getGridData() {
+        return new GridData(cloneCells());
+    }
+
+    private Cell[][] cloneCells() {
+        return Arrays.stream(cells.clone()).
+                map(Cell[]::clone).
+                collect(Collectors.toList()).
+                toArray(new Cell[height()][width()]);
     }
 
     public List<Cell> getFirstRow() {
