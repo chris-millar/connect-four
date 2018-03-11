@@ -1,22 +1,21 @@
 package com.schrismillar.connect4.model;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Grid {
     private final Cell[][] cells;
 
-    public Grid(int height, int width) {
-        cells = gridPopulatedWithCellsWithNoOwner(height, width);
+    public Grid(int height, int width, CellOwnerId startingOwner) {
+        cells = gridPopulatedWithCellsWithNoOwner(height, width, startingOwner);
     }
 
-    private Cell[][] gridPopulatedWithCellsWithNoOwner(int height, int width) {
+    private Cell[][] gridPopulatedWithCellsWithNoOwner(int height, int width, CellOwnerId startingOwner) {
         Cell[][] cells = new Cell[height][width];
 
         for (int row = 0;  row < height; row++) {
             for (int col = 0; col < width; col++) {
-                cells[row][col] = new Cell(row, col, PlayerId.NONE);
+                cells[row][col] = new Cell(row, col, startingOwner);
             }
         }
 
@@ -32,10 +31,10 @@ public class Grid {
     }
 
 
-    public List<List<PlayerId>> cellOwners() {
-        List<List<PlayerId>> rowsOfOwners = new LinkedList<>();
+    public List<List<CellOwnerId>> cellOwners() {
+        List<List<CellOwnerId>> rowsOfOwners = new LinkedList<>();
         for (int row = 0; row < height(); row++) {
-            List<PlayerId> rowOfOwners = new LinkedList<>();
+            List<CellOwnerId> rowOfOwners = new LinkedList<>();
             for (int col = 0; col < width(); col++) {
                 rowOfOwners.add(cells[row][col].owner());
             }

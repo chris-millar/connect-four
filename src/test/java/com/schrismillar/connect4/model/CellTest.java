@@ -20,7 +20,7 @@ public class CellTest {
 
     @Test
     public void ownerReturnsConstructorProvidedOwner() {
-        PlayerId owner = new Cell(ROW, COL, PlayerId.NONE).owner();
+        CellOwnerId owner = new Cell(ROW, COL, PlayerId.NONE).owner();
         assertEquals(PlayerId.NONE, owner);
     }
 }

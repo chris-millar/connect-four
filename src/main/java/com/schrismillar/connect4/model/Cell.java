@@ -6,15 +6,15 @@ public class Cell {
 
     private final int row;
     private final int col;
-    private final PlayerId owner;
+    private final CellOwnerId owner;
 
-    public Cell(int row, int col, PlayerId owner) {
+    public Cell(int row, int col, CellOwnerId owner) {
         this.row = row;
         this.col = col;
         this.owner = owner;
     }
 
-    public PlayerId owner() {
+    public CellOwnerId owner() {
         return owner;
     }
 
@@ -32,5 +32,14 @@ public class Cell {
     @Override
     public int hashCode() {
         return Objects.hash(row, col, owner);
+    }
+
+    @Override
+    public String toString() {
+        return "Cell{" +
+                "row=" + row +
+                ", col=" + col +
+                ", owner=" + owner +
+                '}';
     }
 }

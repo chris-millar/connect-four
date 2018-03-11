@@ -1,8 +1,7 @@
 package com.schrismillar.connect4.model;
 
-import static com.schrismillar.connect4.model.PlayerId.NONE;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -12,10 +11,11 @@ public class GridTest {
 
     @Test
     public void cellOwnersReturnsListOfOwnersOfAllCellsInGrid() {
-        Grid grid = new Grid(2, 2);
+        CellOwnerId startingOwner = new CellOwnerId() {};
+        Grid grid = new Grid(2, 2, startingOwner);
 
-        List<List<PlayerId>> owners = grid.cellOwners();
+        List<List<CellOwnerId>> owners = grid.cellOwners();
 
-        assertEquals(asList(asList(NONE, NONE), asList(NONE, NONE)), owners);
+        assertEquals(asList(asList(startingOwner, startingOwner), asList(startingOwner, startingOwner)), owners);
     }
 }
