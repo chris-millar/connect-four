@@ -1,10 +1,7 @@
 package com.schrismillar.connect4;
 
-import java.util.LinkedList;
-import java.util.List;
-
-import com.schrismillar.connect4.model.CellOwnerId;
 import com.schrismillar.connect4.model.Grid;
+import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.*;
 
@@ -14,22 +11,38 @@ public class DisplaySomeGrid {
     private static final DisplayCell YELLOW_DISPLAY_CELL = new YellowDisplayCell();
 
     public static void main(String[] args) {
-        Grid connectFourGrid = new Grid(6, 7, PlayerId.NONE);
-        List<List<CellOwnerId>> playerIds = connectFourGrid.cellOwners();
-        List<List<DisplayCell>> displayCells = transform(playerIds);
-        DisplayGrid displayGrid = new ListBasedDisplayGrid(displayCells);
-        System.out.print(displayGrid.displayValue());
+        PlayerId startingOwner = PlayerId.NONE;
+        Grid connectFourGrid = new Grid(6, 7, startingOwner);
+
+        CellOwnerToDisplayCellMapper mapper = owner -> {
+            if (owner instanceof PlayerId) {
+                if (owner == PlayerId.PLAYER_ONE) {
+                    return RED_DISPLAY_CELL;
+                } else if (owner == PlayerId.PLAYER_TWO) {
+                    return YELLOW_DISPLAY_CELL;
+                } else {
+                    return EMPTY_DISPLAY_CELL;
+                }
+            } else {
+                return EMPTY_DISPLAY_CELL;
+            }
+        };
+
+        System.out.println(getDisplayGrid(connectFourGrid, mapper).displayValue());
+        System.out.println("\n");
+
+        connectFourGrid.assignCellAtPositionTo(3, 4, PlayerId.PLAYER_ONE);
+        System.out.println(getDisplayGrid(connectFourGrid, mapper).displayValue());
+        System.out.println("\n");
+
+        connectFourGrid.assignCellAtPositionTo(1, 6, PlayerId.PLAYER_TWO);
+        System.out.println(getDisplayGrid(connectFourGrid, mapper).displayValue());
+        System.out.println("\n");
     }
 
-    private static List<List<DisplayCell>> transform(List<List<CellOwnerId>> playerIds) {
-        List<List<DisplayCell>> displayCells = new LinkedList<>();
-        playerIds.forEach(row -> {
-            List<DisplayCell> rowCells = new LinkedList<>();
-            row.forEach(playerId -> {
-                rowCells.add(RED_DISPLAY_CELL);
-            });
-            displayCells.add(rowCells);
-        });
-        return displayCells;
+    private static DisplayGrid getDisplayGrid(Grid connectFourGrid, CellOwnerToDisplayCellMapper mapper) {
+        GridData gridData = connectFourGrid.getGridData();
+        DisplayGrid displayGrid = new GridDataBasedDisplayGrid(gridData, mapper);
+        return displayGrid;
     }
 }
