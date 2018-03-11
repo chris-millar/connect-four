@@ -8,14 +8,14 @@ import java.util.List;
 import org.junit.Test;
 
 public class GridTest {
+    private static final CellOwnerId STARTING_OWNER = new CellOwnerId() {};
 
     @Test
     public void cellOwnersReturnsListOfOwnersOfAllCellsInGrid() {
-        CellOwnerId startingOwner = new CellOwnerId() {};
-        Grid grid = new Grid(2, 2, startingOwner);
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
 
         List<List<CellOwnerId>> owners = grid.cellOwners();
 
-        assertEquals(asList(asList(startingOwner, startingOwner), asList(startingOwner, startingOwner)), owners);
+        assertEquals(asList(asList(STARTING_OWNER, STARTING_OWNER), asList(STARTING_OWNER, STARTING_OWNER)), owners);
     }
 }

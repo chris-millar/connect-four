@@ -7,10 +7,10 @@ public class Grid {
     private final Cell[][] cells;
 
     public Grid(int height, int width, CellOwnerId startingOwner) {
-        cells = gridPopulatedWithCellsWithNoOwner(height, width, startingOwner);
+        cells = gridPopulatedWithCellsWithOwner(height, width, startingOwner);
     }
 
-    private Cell[][] gridPopulatedWithCellsWithNoOwner(int height, int width, CellOwnerId startingOwner) {
+    private Cell[][] gridPopulatedWithCellsWithOwner(int height, int width, CellOwnerId startingOwner) {
         Cell[][] cells = new Cell[height][width];
 
         for (int row = 0;  row < height; row++) {
