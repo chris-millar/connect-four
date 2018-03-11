@@ -48,7 +48,7 @@ public class Grid {
     }
 
     public List<Cell> getFirstRow() {
-        return asList(cells[FIRST_ROW]);
+        return asList(cells[FIRST_ROW].clone());
     }
 
     public List<Cell> getColumn(int col) {
