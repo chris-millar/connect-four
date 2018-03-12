@@ -1,7 +1,6 @@
 package com.schrismillar.connect4;
 
-import com.schrismillar.connect4.model.Grid;
-import com.schrismillar.connect4.model.GridData;
+import com.schrismillar.connect4.game.ConnectFourBoard;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.*;
 
@@ -12,7 +11,7 @@ public class DisplaySomeGrid {
 
     public static void main(String[] args) {
         PlayerId startingOwner = PlayerId.NONE;
-        Grid connectFourGrid = new Grid(6, 7, startingOwner);
+        ConnectFourBoard connectFourBoard = new ConnectFourBoard();
 
         CellOwnerToDisplayCellMapper mapper = owner -> {
             if (owner instanceof PlayerId) {
@@ -28,21 +27,16 @@ public class DisplaySomeGrid {
             }
         };
 
-        System.out.println(getDisplayGrid(connectFourGrid, mapper).displayValue());
+        System.out.println(new GridDataBasedDisplayGrid(connectFourBoard.getGridData(), mapper).displayValue());
         System.out.println("\n");
 
-        connectFourGrid.assignCellAtPositionTo(3, 4, PlayerId.PLAYER_ONE);
-        System.out.println(getDisplayGrid(connectFourGrid, mapper).displayValue());
+        connectFourBoard.dropIntoColumn(2, PlayerId.PLAYER_ONE);
+        System.out.println(new GridDataBasedDisplayGrid(connectFourBoard.getGridData(), mapper).displayValue());
         System.out.println("\n");
 
-        connectFourGrid.assignCellAtPositionTo(1, 6, PlayerId.PLAYER_TWO);
-        System.out.println(getDisplayGrid(connectFourGrid, mapper).displayValue());
+        connectFourBoard.dropIntoColumn(4, PlayerId.PLAYER_TWO);
+        System.out.println(new GridDataBasedDisplayGrid(connectFourBoard.getGridData(), mapper).displayValue());
         System.out.println("\n");
     }
 
-    private static DisplayGrid getDisplayGrid(Grid connectFourGrid, CellOwnerToDisplayCellMapper mapper) {
-        GridData gridData = connectFourGrid.getGridData();
-        DisplayGrid displayGrid = new GridDataBasedDisplayGrid(gridData, mapper);
-        return displayGrid;
-    }
 }
