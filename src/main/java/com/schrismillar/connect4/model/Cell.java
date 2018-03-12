@@ -42,4 +42,8 @@ public class Cell {
                 ", owner=" + owner +
                 '}';
     }
+
+    public int getColumn() {
+        return col;
+    }
 }
