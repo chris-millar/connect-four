@@ -17,7 +17,7 @@ public class DisplayGridImplTest {
     private static final CellOwnerToDisplayCellMapper ALWAYS_ONE = cellOwner -> ONE;
     private static final CellOwnerId OWNER_ONE = new CellOwnerId() {};
     private static final CellOwnerId OWNER_TWO = new CellOwnerId() {};
-    public static final CellOwnerToDisplayCellMapper MULTI_OWNER_MAPPER = owner -> {
+    private static final CellOwnerToDisplayCellMapper MULTI_OWNER_MAPPER = owner -> {
         if (owner == OWNER_ONE) {
             return ONE;
         } else if (owner == OWNER_TWO) {
@@ -37,6 +37,8 @@ public class DisplayGridImplTest {
         String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
+                "|-0-|" + "\n" +
+                "\n" +
                 "|---|" + "\n" +
                 "|(1)|" + "\n" +
                 "|---|";
@@ -54,6 +56,8 @@ public class DisplayGridImplTest {
         String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
+                "|-0-|" + "|-1-|" + "\n" +
+                "\n" +
                 "|---|" + "|---|" + "\n" +
                 "|(1)|" + "|(2)|" + "\n" +
                 "|---|" + "|---|";
@@ -73,6 +77,8 @@ public class DisplayGridImplTest {
         String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
+                "|-0-|" + "|-1-|" + "\n" +
+                "\n" +
                 "|---|" + "|---|" + "\n" +
                 "|(1)|" + "|(2)|" + "\n" +
                 "|---|" + "|---|" + "\n" +
@@ -101,6 +107,8 @@ public class DisplayGridImplTest {
         String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
+                "|-0-|" + "|-1-|" + "|-2-|" +"\n" +
+                "\n" +
                 "|---|" + "|---|" + "|---|" +"\n" +
                 "|(1)|" + "|( )|" + "|(2)|" +"\n" +
                 "|---|" + "|---|" + "|---|" +"\n" +

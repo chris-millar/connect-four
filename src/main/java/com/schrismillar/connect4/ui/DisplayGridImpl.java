@@ -17,6 +17,7 @@ public class DisplayGridImpl implements DisplayGrid {
     @Override
     public String displayValue() {
         StringBuilder gridStringBuilder = new StringBuilder();
+        gridStringBuilder.append(columnIdsFor(gridData.width())).append(NEW_LINE).append(NEW_LINE);
         for (int row = 0; row < gridData.height(); row++) {
             DisplayRowStringBuilder rowStringBuilder = new DisplayRowStringBuilder();
             for (int col = 0; col < gridData.width(); col++) {
@@ -30,6 +31,14 @@ public class DisplayGridImpl implements DisplayGrid {
             }
         }
         return gridStringBuilder.toString();
+    }
+
+    private String columnIdsFor(int width) {
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int col = 0; col < width; col++) {
+            stringBuilder.append("|-").append(col).append("-|");
+        }
+        return stringBuilder.toString();
     }
 
     private boolean notLastRow(int row) {
