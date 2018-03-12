@@ -27,15 +27,15 @@ public class DisplaySomeGrid {
             }
         };
 
-        System.out.println(new GridDataBasedDisplayGrid(connectFourBoard.getGridData(), mapper).displayValue());
+        System.out.println(new DisplayGridImpl(connectFourBoard.getGridData(), mapper).displayValue());
         System.out.println("\n");
 
         connectFourBoard.dropIntoColumn(2, PlayerId.PLAYER_ONE);
-        System.out.println(new GridDataBasedDisplayGrid(connectFourBoard.getGridData(), mapper).displayValue());
+        System.out.println(new DisplayGridImpl(connectFourBoard.getGridData(), mapper).displayValue());
         System.out.println("\n");
 
         connectFourBoard.dropIntoColumn(4, PlayerId.PLAYER_TWO);
-        System.out.println(new GridDataBasedDisplayGrid(connectFourBoard.getGridData(), mapper).displayValue());
+        System.out.println(new DisplayGridImpl(connectFourBoard.getGridData(), mapper).displayValue());
         System.out.println("\n");
     }
 

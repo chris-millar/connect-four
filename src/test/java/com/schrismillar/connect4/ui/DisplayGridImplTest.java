@@ -1,12 +1,8 @@
 package com.schrismillar.connect4.ui;
 
-import static java.util.Arrays.asList;
-import static java.util.Arrays.setAll;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import java.util.List;
 
 import org.junit.Test;
 
@@ -14,7 +10,7 @@ import com.schrismillar.connect4.model.Cell;
 import com.schrismillar.connect4.model.CellOwnerId;
 import com.schrismillar.connect4.model.GridData;
 
-public class GridDataBasedDisplayGridTest {
+public class DisplayGridImplTest {
     private static final DisplayCell ONE = () -> "1";
     private static final DisplayCell TWO = () -> "2";
     private static final DisplayCell BLANK = () -> " ";
@@ -36,9 +32,9 @@ public class GridDataBasedDisplayGridTest {
         Cell[][] cells = new Cell[1][1];
         cells[0][0] = cellWithOwner(OWNER_ONE);
         GridData gridData = new GridData(cells);
-        GridDataBasedDisplayGrid gridDataBasedDisplayGrid = new GridDataBasedDisplayGrid(gridData, ALWAYS_ONE);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, ALWAYS_ONE);
 
-        String displayValue = gridDataBasedDisplayGrid.displayValue();
+        String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
                 "|---|" + "\n" +
@@ -53,9 +49,9 @@ public class GridDataBasedDisplayGridTest {
         cells[0][0] = cellWithOwner(OWNER_ONE);
         cells[0][1] = cellWithOwner(OWNER_TWO);
         GridData gridData = new GridData(cells);
-        GridDataBasedDisplayGrid gridDataBasedDisplayGrid = new GridDataBasedDisplayGrid(gridData, MULTI_OWNER_MAPPER);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER);
 
-        String displayValue = gridDataBasedDisplayGrid.displayValue();
+        String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
                 "|---|" + "|---|" + "\n" +
@@ -72,9 +68,9 @@ public class GridDataBasedDisplayGridTest {
         cells[1][0] = cellWithOwner(mock(CellOwnerId.class));
         cells[1][1] = cellWithOwner(OWNER_TWO);
         GridData gridData = new GridData(cells);
-        GridDataBasedDisplayGrid gridDataBasedDisplayGrid = new GridDataBasedDisplayGrid(gridData, MULTI_OWNER_MAPPER);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER);
 
-        String displayValue = gridDataBasedDisplayGrid.displayValue();
+        String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
                 "|---|" + "|---|" + "\n" +
@@ -100,9 +96,9 @@ public class GridDataBasedDisplayGridTest {
         cells[2][1] = cellWithOwner(OWNER_TWO);
         cells[2][2] = cellWithOwner(OWNER_ONE);
         GridData gridData = new GridData(cells);
-        GridDataBasedDisplayGrid gridDataBasedDisplayGrid = new GridDataBasedDisplayGrid(gridData, MULTI_OWNER_MAPPER);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER);
 
-        String displayValue = gridDataBasedDisplayGrid.displayValue();
+        String displayValue = displayGridImpl.displayValue();
 
         String expectedDisplayValue =
                 "|---|" + "|---|" + "|---|" +"\n" +

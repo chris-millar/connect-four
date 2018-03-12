@@ -3,13 +3,13 @@ package com.schrismillar.connect4.ui;
 import com.schrismillar.connect4.model.CellOwnerId;
 import com.schrismillar.connect4.model.GridData;
 
-public class GridDataBasedDisplayGrid implements DisplayGrid {
+public class DisplayGridImpl implements DisplayGrid {
     private static final String NEW_LINE = "\n";
 
     private final GridData gridData;
     private final CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper;
 
-    public GridDataBasedDisplayGrid(GridData gridData, CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper) {
+    public DisplayGridImpl(GridData gridData, CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper) {
         this.gridData = gridData;
         this.cellOwnerToDisplayCellMapper = cellOwnerToDisplayCellMapper;
     }
