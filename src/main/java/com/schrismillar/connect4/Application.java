@@ -1,7 +1,6 @@
 package com.schrismillar.connect4;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.schrismillar.connect4.game.*;
@@ -35,15 +34,14 @@ public class Application {
         application.start();
     }
 
-    public void start() {
+    private void start() {
         ConsolePrinter consolePrinter = new ConsolePrinter();
         ConsoleScanner consoleScanner = new ConsoleScanner();
-        boolean running = true;
-        while (running) {
+        while (true) {
             if (shouldPlayNewGame(consolePrinter, consoleScanner)) {
                 playNewGame(consolePrinter, consoleScanner);
             } else {
-                running = false;
+                return;
             }
         }
     }
