@@ -11,28 +11,29 @@ import com.schrismillar.connect4.model.CellOwnerId;
 import com.schrismillar.connect4.model.GridData;
 
 public class DisplayGridImplTest {
-    private static final DisplayCell ONE = () -> "1";
-    private static final DisplayCell TWO = () -> "2";
+    private static final DisplayCell A = () -> "A";
+    private static final DisplayCell B = () -> "B";
     private static final DisplayCell BLANK = () -> " ";
-    private static final CellOwnerToDisplayCellMapper ALWAYS_ONE = cellOwner -> ONE;
+    private static final CellOwnerToDisplayCellMapper ALWAYS_A = cellOwner -> A;
     private static final CellOwnerId OWNER_ONE = new CellOwnerId() {};
     private static final CellOwnerId OWNER_TWO = new CellOwnerId() {};
     private static final CellOwnerToDisplayCellMapper MULTI_OWNER_MAPPER = owner -> {
         if (owner == OWNER_ONE) {
-            return ONE;
+            return A;
         } else if (owner == OWNER_TWO) {
-            return TWO;
+            return B;
         } else {
             return BLANK;
         }
     };
+    private static final int BASE_0_COLUMN_IDS = 0;
 
     @Test
     public void displayValueReturnsStringRepresentationOfGridWithSingleCellIfOnlyOneCellProvided() {
         Cell[][] cells = new Cell[1][1];
         cells[0][0] = cellWithOwner(OWNER_ONE);
         GridData gridData = new GridData(cells);
-        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, ALWAYS_ONE);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, ALWAYS_A, BASE_0_COLUMN_IDS);
 
         String displayValue = displayGridImpl.displayValue();
 
@@ -40,7 +41,7 @@ public class DisplayGridImplTest {
                 "|-0-|" + "\n" +
                 "\n" +
                 "|---|" + "\n" +
-                "|(1)|" + "\n" +
+                "|(A)|" + "\n" +
                 "|---|";
         assertEquals(expectedDisplayValue, displayValue);
     }
@@ -51,7 +52,7 @@ public class DisplayGridImplTest {
         cells[0][0] = cellWithOwner(OWNER_ONE);
         cells[0][1] = cellWithOwner(OWNER_TWO);
         GridData gridData = new GridData(cells);
-        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER, BASE_0_COLUMN_IDS);
 
         String displayValue = displayGridImpl.displayValue();
 
@@ -59,7 +60,7 @@ public class DisplayGridImplTest {
                 "|-0-|" + "|-1-|" + "\n" +
                 "\n" +
                 "|---|" + "|---|" + "\n" +
-                "|(1)|" + "|(2)|" + "\n" +
+                "|(A)|" + "|(B)|" + "\n" +
                 "|---|" + "|---|";
         assertEquals(expectedDisplayValue, displayValue);
     }
@@ -72,7 +73,7 @@ public class DisplayGridImplTest {
         cells[1][0] = cellWithOwner(mock(CellOwnerId.class));
         cells[1][1] = cellWithOwner(OWNER_TWO);
         GridData gridData = new GridData(cells);
-        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER, BASE_0_COLUMN_IDS);
 
         String displayValue = displayGridImpl.displayValue();
 
@@ -80,10 +81,10 @@ public class DisplayGridImplTest {
                 "|-0-|" + "|-1-|" + "\n" +
                 "\n" +
                 "|---|" + "|---|" + "\n" +
-                "|(1)|" + "|(2)|" + "\n" +
+                "|(A)|" + "|(B)|" + "\n" +
                 "|---|" + "|---|" + "\n" +
                 "|---|" + "|---|" + "\n" +
-                "|( )|" + "|(2)|" + "\n" +
+                "|( )|" + "|(B)|" + "\n" +
                 "|---|" + "|---|";
         assertEquals(expectedDisplayValue, displayValue);
     }
@@ -102,7 +103,7 @@ public class DisplayGridImplTest {
         cells[2][1] = cellWithOwner(OWNER_TWO);
         cells[2][2] = cellWithOwner(OWNER_ONE);
         GridData gridData = new GridData(cells);
-        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER);
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER, BASE_0_COLUMN_IDS);
 
         String displayValue = displayGridImpl.displayValue();
 
@@ -110,14 +111,39 @@ public class DisplayGridImplTest {
                 "|-0-|" + "|-1-|" + "|-2-|" +"\n" +
                 "\n" +
                 "|---|" + "|---|" + "|---|" +"\n" +
-                "|(1)|" + "|( )|" + "|(2)|" +"\n" +
+                "|(A)|" + "|( )|" + "|(B)|" +"\n" +
                 "|---|" + "|---|" + "|---|" +"\n" +
                 "|---|" + "|---|" + "|---|" +"\n" +
-                "|( )|" + "|(2)|" + "|(2)|" +"\n" +
+                "|( )|" + "|(B)|" + "|(B)|" +"\n" +
                 "|---|" + "|---|" + "|---|" +"\n" +
                 "|---|" + "|---|" + "|---|" +"\n" +
-                "|( )|" + "|(2)|" + "|(1)|" +"\n" +
+                "|( )|" + "|(B)|" + "|(A)|" +"\n" +
                 "|---|" + "|---|" + "|---|";
+        assertEquals(expectedDisplayValue, displayValue);
+    }
+
+    @Test
+    public void displayValueReturns2x2GridWithColumnIdsShifterByProvidedBase() {
+        Cell[][] cells = new Cell[2][2];
+        cells[0][0] = cellWithOwner(OWNER_ONE);
+        cells[0][1] = cellWithOwner(OWNER_TWO);
+        cells[1][0] = cellWithOwner(mock(CellOwnerId.class));
+        cells[1][1] = cellWithOwner(OWNER_TWO);
+        GridData gridData = new GridData(cells);
+        int base1ColumnIds = 1;
+        DisplayGridImpl displayGridImpl = new DisplayGridImpl(gridData, MULTI_OWNER_MAPPER, base1ColumnIds);
+
+        String displayValue = displayGridImpl.displayValue();
+
+        String expectedDisplayValue =
+                "|-1-|" + "|-2-|" + "\n" +
+                "\n" +
+                "|---|" + "|---|" + "\n" +
+                "|(A)|" + "|(B)|" + "\n" +
+                "|---|" + "|---|" + "\n" +
+                "|---|" + "|---|" + "\n" +
+                "|( )|" + "|(B)|" + "\n" +
+                "|---|" + "|---|";
         assertEquals(expectedDisplayValue, displayValue);
     }
 

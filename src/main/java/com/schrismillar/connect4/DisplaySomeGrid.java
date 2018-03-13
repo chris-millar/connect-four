@@ -8,6 +8,7 @@ public class DisplaySomeGrid {
     private static final DisplayCell EMPTY_DISPLAY_CELL = new EmptyDisplayCell();
     private static final DisplayCell RED_DISPLAY_CELL = new RedDisplayCell();
     private static final DisplayCell YELLOW_DISPLAY_CELL = new YellowDisplayCell();
+    private static final int BASE_0_COLUMN_IDS = 0;
 
     public static void main(String[] args) {
         PlayerId startingOwner = PlayerId.NONE;
@@ -27,15 +28,17 @@ public class DisplaySomeGrid {
             }
         };
 
-        System.out.println(new DisplayGridImpl(connectFourBoard.getGridData(), mapper).displayValue());
-        System.out.println("\n");
+        printBoard(connectFourBoard, mapper);
 
         connectFourBoard.dropIntoColumn(2, PlayerId.PLAYER_ONE);
-        System.out.println(new DisplayGridImpl(connectFourBoard.getGridData(), mapper).displayValue());
-        System.out.println("\n");
+        printBoard(connectFourBoard, mapper);
 
         connectFourBoard.dropIntoColumn(4, PlayerId.PLAYER_TWO);
-        System.out.println(new DisplayGridImpl(connectFourBoard.getGridData(), mapper).displayValue());
+        printBoard(connectFourBoard, mapper);
+    }
+
+    private static void printBoard(ConnectFourBoard connectFourBoard, CellOwnerToDisplayCellMapper mapper) {
+        System.out.println(new DisplayGridImpl(connectFourBoard.getGridData(), mapper, BASE_0_COLUMN_IDS).displayValue());
         System.out.println("\n");
     }
 

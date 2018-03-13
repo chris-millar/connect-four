@@ -8,10 +8,12 @@ public class DisplayGridImpl implements DisplayGrid {
 
     private final GridData gridData;
     private final CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper;
+    private final int columnIdBase;
 
-    public DisplayGridImpl(GridData gridData, CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper) {
+    public DisplayGridImpl(GridData gridData, CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper, int columnIdBase) {
         this.gridData = gridData;
         this.cellOwnerToDisplayCellMapper = cellOwnerToDisplayCellMapper;
+        this.columnIdBase = columnIdBase;
     }
 
     @Override
@@ -36,7 +38,7 @@ public class DisplayGridImpl implements DisplayGrid {
     private String columnIdsFor(int width) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int col = 0; col < width; col++) {
-            stringBuilder.append("|-").append(col).append("-|");
+            stringBuilder.append("|-").append(col + columnIdBase).append("-|");
         }
         return stringBuilder.toString();
     }
