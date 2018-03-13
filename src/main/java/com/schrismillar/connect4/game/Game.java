@@ -1,5 +1,10 @@
 package com.schrismillar.connect4.game;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.schrismillar.connect4.model.Cell;
+import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.util.ConsolePrinter;
 
 public class Game {
@@ -28,5 +33,16 @@ public class Game {
 
     public boolean isOver() {
         return connectFourBoard.availableColumnIds().isEmpty();
+    }
+
+    public GridData takeTurn(Player currentPlayer, int columnIdBase) {
+        int columnChoice = promptForPlayerColumnChoice(currentPlayer, connectFourBoard.availableColumnIds(), columnIdBase);
+        Cell cell = connectFourBoard.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
+        return connectFourBoard.getGridData();
+    }
+
+    private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns, int columnIdBase) {
+        List<Integer> baseOneAvailableColumns = availableColumns.stream().map(integer -> integer + columnIdBase).collect(Collectors.toList());
+        return currentPlayer.decideMove(baseOneAvailableColumns) - columnIdBase;
     }
 }

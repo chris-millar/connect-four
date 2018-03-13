@@ -1,10 +1,6 @@
 package com.schrismillar.connect4;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.schrismillar.connect4.game.*;
-import com.schrismillar.connect4.model.Cell;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.*;
@@ -28,6 +24,7 @@ public class Application {
             return EMPTY_DISPLAY_CELL;
         }
     };
+    private static final int BASE_1_COLUMN_IDS = 1;
 
     public static void main(String[] args) {
         Application application = new Application();
@@ -51,7 +48,7 @@ public class Application {
         Player playerTwo = PlayerFactory.instance().createHumanPlayerWith(PlayerId.PLAYER_TWO);
         ConnectFourBoard connectFourBoard = new ConnectFourBoard();
         GridDataDisplayer consoleGridDataPrinter = gridData -> {
-            consolePrinter.println(new DisplayGridImpl(gridData, MAPPER, 1).displayValue());
+            consolePrinter.println(new DisplayGridImpl(gridData, MAPPER, BASE_1_COLUMN_IDS).displayValue());
             consolePrinter.printBlankLine();
         };
         Game game = new Game(playerOne, playerTwo, connectFourBoard, consolePrinter, consoleGridDataPrinter);
@@ -59,8 +56,8 @@ public class Application {
 
         Player currentPlayer = playerOne;
         while(game.isStillGoing()) {
-            GridData turnGridData = turn(connectFourBoard, currentPlayer);
-            consolePrinter.println(new DisplayGridImpl(turnGridData, MAPPER, 1).displayValue());
+            GridData turnGridData = game.takeTurn(currentPlayer, BASE_1_COLUMN_IDS);
+            consolePrinter.println(new DisplayGridImpl(turnGridData, MAPPER, BASE_1_COLUMN_IDS).displayValue());
             consolePrinter.printBlankLine();
             currentPlayer = currentPlayer == playerOne ? playerTwo : playerOne;
 
@@ -82,16 +79,5 @@ public class Application {
             consolePrinter.println("INVALID INPUT: You must answer either y or n");
             return shouldPlayNewGame(consolePrinter, consoleScanner);
         }
-    }
-
-    private GridData turn(ConnectFourBoard connectFourBoard, Player currentPlayer) {
-        int columnChoice = promptForPlayerColumnChoice(currentPlayer, connectFourBoard.availableColumnIds());
-        Cell cell = connectFourBoard.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
-        return connectFourBoard.getGridData();
-    }
-
-    private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns) {
-        List<Integer> baseOneAvailableColumns = availableColumns.stream().map(integer -> integer + 1).collect(Collectors.toList());
-        return currentPlayer.decideMove(baseOneAvailableColumns) - 1;
     }
 }
