@@ -12,4 +12,8 @@ public class ConsoleScanner {
     public int nextInt() {
         return scanner.nextInt();
     }
+
+    public String next() {
+        return scanner.next();
+    }
 }
