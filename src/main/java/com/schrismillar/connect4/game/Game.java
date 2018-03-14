@@ -5,45 +5,74 @@ import java.util.stream.Collectors;
 
 import com.schrismillar.connect4.model.Cell;
 import com.schrismillar.connect4.model.GridData;
-import com.schrismillar.connect4.util.ConsolePrinter;
 
 public class Game {
     private final Player playerOne;
     private final Player playerTwo;
     private final ConnectFourBoard connectFourBoard;
-    private final ConsolePrinter consolePrinter;
-    private final GridDataDisplayer gridDataDisplayer;
 
-    public Game(Player playerOne, Player playerTwo, ConnectFourBoard connectFourBoard, ConsolePrinter consolePrinter, GridDataDisplayer gridDataDisplayer) {
+    private Player currentPlayer;
+    private GameState currentGameState;
+
+    public Game(Player playerOne, Player playerTwo, ConnectFourBoard connectFourBoard) {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
         this.connectFourBoard = connectFourBoard;
-        this.consolePrinter = consolePrinter;
-        this.gridDataDisplayer = gridDataDisplayer;
+        currentPlayer = playerOne;
+        currentGameState = new ActiveGameState();
     }
 
-    public void start() {
-        consolePrinter.println("The game is starting. Here is the Connect Four board.");
-        gridDataDisplayer.display(connectFourBoard.getGridData());
+    public GridData getGridData() {
+        return connectFourBoard.getGridData();
     }
 
-    public boolean isStillGoing() {
-        return !isOver();
+    public boolean isActive() {
+        return currentGameState.isActive();
     }
 
     public boolean isOver() {
-        return connectFourBoard.availableColumnIds().isEmpty();
+        return !currentGameState.isActive();
     }
 
-    public Player takeTurn(Player currentPlayer, int columnIdBase) {
-        int columnChoice = promptForPlayerColumnChoice(currentPlayer, connectFourBoard.availableColumnIds(), columnIdBase);
-        Cell cell = connectFourBoard.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
-        gridDataDisplayer.display(connectFourBoard.getGridData());
+    public GridData takeTurnForCurrentPlayer() {
+        //Step 1: decide play
+        int columnChoice = promptForPlayerColumnChoice(currentPlayer, connectFourBoard.availableColumnIds());
+
+        //Step 2: make play
+        Cell justPlayedCell = connectFourBoard.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
+
+        //Step 3: determine new GameState (was win or tie?)
+        //TODO
+        //return gridData and
+        currentGameState = determineNewState();
+
+        //Step 4: allow other player to observe play that just happened
+        //otherPlayer().observePlay(justPlayedCell)
+
+        //Step 5: update current player
+        currentPlayer = otherPlayer();
+
+        //Step 6: return current grid data
+        return connectFourBoard.getGridData();
+    }
+
+    private GameState determineNewState() {
+        if (connectFourBoard.availableColumnIds().isEmpty()) {
+            return new TieGameState();
+        }
+        return new ActiveGameState();
+    }
+
+    private Player otherPlayer() {
         return currentPlayer == playerOne ? playerTwo : playerOne;
     }
 
-    private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns, int columnIdBase) {
-        List<Integer> baseOneAvailableColumns = availableColumns.stream().map(integer -> integer + columnIdBase).collect(Collectors.toList());
-        return currentPlayer.decideMove(baseOneAvailableColumns) - columnIdBase;
+    private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns) {
+        List<Integer> baseOneAvailableColumns = availableColumns.stream().map(integer -> integer + 1).collect(Collectors.toList());
+        return currentPlayer.decideMove(baseOneAvailableColumns) - 1;
+    }
+
+    public GameState getCurrentGameState() {
+        return currentGameState;
     }
 }
