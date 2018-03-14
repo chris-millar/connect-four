@@ -1,5 +1,7 @@
 package com.schrismillar.connect4.game;
 
+import java.util.Optional;
+
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.*;
@@ -38,19 +40,19 @@ public class CommandLineGameOrganizer {
         Game game = beginGameWith(playerOne, playerTwo);
 
         while(game.getCurrentGameState().isActive()) {
-            GridData gridData = game.takeTurnForCurrentPlayer();
-            printGridData(gridData);
+            game = game.takeTurnForCurrentPlayer();
+            printGridData(game.getGridData());
 
-            if (!game.getCurrentGameState().isActive()) {
-                consolePrinter.println("I have no idea who won, but this game is over");
-                return;
-            }
         }
+        Optional<Player> winner = game.getCurrentGameState().winner();
+        String gameOverMessage = winner.map(player -> "The Winner is " + player.getPlayerId() + "!").
+                orElse("No winner today, this is a tie game.");
+        consolePrinter.println(gameOverMessage);
     }
 
     private Game beginGameWith(Player playerOne, Player playerTwo) {
         ConnectFourBoard connectFourBoard = new ConnectFourBoard();
-        Game game = new Game(playerOne, playerTwo, connectFourBoard);
+        Game game = new Game(playerOne, playerTwo, connectFourBoard, new ActiveGameState());
         GridData startGridData = game.getGridData();
         consolePrinter.println("The game is starting. Here is the Connect Four board.");
         printGridData(startGridData);

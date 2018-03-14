@@ -5,21 +5,19 @@ import java.util.stream.Collectors;
 
 import com.schrismillar.connect4.model.Cell;
 import com.schrismillar.connect4.model.GridData;
+import com.schrismillar.connect4.model.PlayerId;
 
 public class Game {
-    private final Player playerOne;
-    private final Player playerTwo;
+    private final Player nextPlayer;
     private final ConnectFourBoard connectFourBoard;
+    private final Player currentPlayer;
+    private final GameState currentGameState;
 
-    private Player currentPlayer;
-    private GameState currentGameState;
-
-    public Game(Player playerOne, Player playerTwo, ConnectFourBoard connectFourBoard) {
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
+    public Game(Player currentPlayer, Player nextPlayer, ConnectFourBoard connectFourBoard, GameState currentGameState) {
+        this.currentPlayer = currentPlayer;
+        this.nextPlayer = nextPlayer;
         this.connectFourBoard = connectFourBoard;
-        currentPlayer = playerOne;
-        currentGameState = new ActiveGameState();
+        this.currentGameState = currentGameState;
     }
 
     public GridData getGridData() {
@@ -34,7 +32,7 @@ public class Game {
         return !currentGameState.isActive();
     }
 
-    public GridData takeTurnForCurrentPlayer() {
+    public Game takeTurnForCurrentPlayer() {
         //Step 1: decide play
         int columnChoice = promptForPlayerColumnChoice(currentPlayer, connectFourBoard.availableColumnIds());
 
@@ -44,27 +42,25 @@ public class Game {
         //Step 3: determine new GameState (was win or tie?)
         //TODO
         //return gridData and
-        currentGameState = determineNewState();
 
         //Step 4: allow other player to observe play that just happened
         //otherPlayer().observePlay(justPlayedCell)
 
-        //Step 5: update current player
-        currentPlayer = otherPlayer();
-
-        //Step 6: return current grid data
-        return connectFourBoard.getGridData();
+        return new Game(nextPlayer, currentPlayer, connectFourBoard, determineNewState(justPlayedCell));
     }
 
-    private GameState determineNewState() {
+    private GameState determineNewState(Cell justPlayedCell) {
+        if (isWin(justPlayedCell)) {
+            return new WinGameState(currentPlayer);
+        };
         if (connectFourBoard.availableColumnIds().isEmpty()) {
             return new TieGameState();
         }
         return new ActiveGameState();
     }
 
-    private Player otherPlayer() {
-        return currentPlayer == playerOne ? playerTwo : playerOne;
+    private boolean isWin(Cell justPlayedCell) {
+        return false;
     }
 
     private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns) {
