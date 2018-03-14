@@ -56,10 +56,7 @@ public class Application {
 
         Player currentPlayer = playerOne;
         while(game.isStillGoing()) {
-            GridData turnGridData = game.takeTurn(currentPlayer, BASE_1_COLUMN_IDS);
-            consolePrinter.println(new DisplayGridImpl(turnGridData, MAPPER, BASE_1_COLUMN_IDS).displayValue());
-            consolePrinter.printBlankLine();
-            currentPlayer = currentPlayer == playerOne ? playerTwo : playerOne;
+            currentPlayer = game.takeTurn(currentPlayer, BASE_1_COLUMN_IDS);
 
             if (game.isOver()) {
                 consolePrinter.println("I have no idea who won, but this game is over");

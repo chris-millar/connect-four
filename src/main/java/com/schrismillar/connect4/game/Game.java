@@ -35,10 +35,11 @@ public class Game {
         return connectFourBoard.availableColumnIds().isEmpty();
     }
 
-    public GridData takeTurn(Player currentPlayer, int columnIdBase) {
+    public Player takeTurn(Player currentPlayer, int columnIdBase) {
         int columnChoice = promptForPlayerColumnChoice(currentPlayer, connectFourBoard.availableColumnIds(), columnIdBase);
         Cell cell = connectFourBoard.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
-        return connectFourBoard.getGridData();
+        gridDataDisplayer.display(connectFourBoard.getGridData());
+        return currentPlayer == playerOne ? playerTwo : playerOne;
     }
 
     private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns, int columnIdBase) {
