@@ -238,4 +238,69 @@ public class BoardTest {
         assertFalse("Expected it to be false because the cell specified has 1 neighbors to left and right but we needed 3 total",
                 has3NeighborsBelow);
     }
+
+    @Test
+    public void hasPositiveDiagonalNeighborsReturnsTrueIfNumberOfSpecifiedCellsToUpThePositiveDiagonalShareSameOwnerAsSpecifiedCell() {
+        Grid grid = mock(Grid.class);
+        Cell cell0 = new Cell(3, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(2, 1, PLAYER_ONE);
+        Cell cell2 = new Cell(1, 2, PLAYER_ONE);
+        Cell cell3 = new Cell(0, 3, PLAYER_ONE);
+        when(grid.getPositiveDiagonalWith(cell0)).thenReturn(asList(cell0, cell1, cell2, cell3));
+        Board board = new Board(grid);
+
+        boolean has3NeighborsUpSlope = board.hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(3, cell0);
+
+        assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors up slope",
+                has3NeighborsUpSlope);
+    }
+
+    @Test
+    public void hasPositiveDiagonalNeighborsReturnsTrueIfNumberOfSpecifiedCellsDownThePositiveSlopeShareSameOwnerAsSpecifiedCell() {
+        Grid grid = mock(Grid.class);
+        Cell cell0 = new Cell(3, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(2, 1, PLAYER_ONE);
+        Cell cell2 = new Cell(1, 2, PLAYER_ONE);
+        Cell cell3 = new Cell(0, 3, PLAYER_ONE);
+        when(grid.getPositiveDiagonalWith(cell3)).thenReturn(asList(cell0, cell1, cell2, cell3));
+        Board board = new Board(grid);
+
+        boolean has3NeighborsDownSlope = board.hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(3, cell3);
+
+        assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors down slope",
+                has3NeighborsDownSlope);
+    }
+
+    @Test
+    public void hasPositiveDiagonalNeighborsReturnsTrueIfNumberOfSpecifiedCellsUpOrDownThePositiveSlopeShareSameOwnerAsSpecifiedCell() {
+        Grid grid = mock(Grid.class);
+        Cell cell0 = new Cell(3, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(2, 1, PLAYER_ONE);
+        Cell cell2 = new Cell(1, 2, PLAYER_ONE);
+        Cell cell3 = new Cell(0, 3, PLAYER_ONE);
+        when(grid.getPositiveDiagonalWith(cell2)).thenReturn(asList(cell0, cell1, cell2, cell3));
+        Board board = new Board(grid);
+
+        boolean has3NeighborsOnSlope = board.hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(3, cell2);
+
+        assertTrue("Expected it to be true because the cell specified has 1 consecutive neighbors down slope and 2 up slope",
+                has3NeighborsOnSlope);
+    }
+
+    @Test
+    public void hasPositiveDiagonalNeighborsReturnsFalseIfNotEnoughConsecutiveNeighborsOnSlopeInEitherDirection() {
+        Grid grid = mock(Grid.class);
+        Cell cell0 = new Cell(6, 2, PLAYER_ONE);
+        Cell cell1 = new Cell(5, 3, PLAYER_ONE);
+        Cell cell2 = new Cell(4, 4, PLAYER_TWO);
+        Cell cell3 = new Cell(3, 5, PLAYER_ONE);
+        Cell cell4 = new Cell(2, 6, PLAYER_ONE);
+        when(grid.getPositiveDiagonalWith(cell1)).thenReturn(asList(cell0, cell1, cell2, cell3, cell4));
+        Board board = new Board(grid);
+
+        boolean has3NeighborsOnSlope = board.hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(3, cell1);
+
+        assertFalse("Expected it to be false because the cell only has 1 consecutive neighbor of same owner",
+                has3NeighborsOnSlope);
+    }
 }

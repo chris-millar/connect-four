@@ -56,14 +56,33 @@ public class Board {
         return leftCount + rightCount >= numberOfNeighbors;
     }
 
+    public boolean hasVerticalNeighborsBelowBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
+        List<Cell> column = connectFourGrid.getColumn(cell.getColumn());
+        int downCount = consecutiveSameOwnersInPositiveDirectionUpToAway(column, cell.getRow(), numberOfNeighbors, cell.owner());
+        return downCount >= numberOfNeighbors;
+    }
+
+    public boolean hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
+        List<Cell> positiveDiagonal = connectFourGrid.getPositiveDiagonalWith(cell);
+        int cellsIndexInDiagonal = positiveDiagonal.indexOf(cell);
+        int upCount = consecutiveSameOwnersInPositiveDirectionUpToAway(positiveDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
+        int downCount = consecutiveSameOwnersInNegativeDirectionUpToAway(positiveDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
+
+        return upCount + downCount >= numberOfNeighbors;
+    }
+
+    public boolean hasNegativeDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
+        return false;
+    }
+
     private int consecutiveSameOwnersInNegativeDirectionUpToAway(List<Cell> list, int startIndex, int numberOfNeighbors, CellOwnerId owner) {
-            int currentIndex = startIndex - 1;
-            int sameOwnerStreak = 0;
-            while (currentIndex >= 0 && list.get(currentIndex).owner() == owner) {
-                sameOwnerStreak++;
-                currentIndex--;
-            }
-            return sameOwnerStreak;
+        int currentIndex = startIndex - 1;
+        int sameOwnerStreak = 0;
+        while (currentIndex >= 0 && list.get(currentIndex).owner() == owner) {
+            sameOwnerStreak++;
+            currentIndex--;
+        }
+        return sameOwnerStreak;
     }
 
     private int consecutiveSameOwnersInPositiveDirectionUpToAway(List<Cell> list, int startIndex, int numberOfNeighbors, CellOwnerId owner) {
@@ -74,19 +93,5 @@ public class Board {
             currentIndex++;
         }
         return sameOwnerStreak;
-    }
-
-    public boolean hasVerticalNeighborsBelowBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
-        List<Cell> column = connectFourGrid.getColumn(cell.getColumn());
-        int downCount = consecutiveSameOwnersInPositiveDirectionUpToAway(column, cell.getRow(), numberOfNeighbors, cell.owner());
-        return downCount >= numberOfNeighbors;
-    }
-
-    public boolean hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
-        return false;
-    }
-
-    public boolean hasNegativeDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
-        return false;
     }
 }
