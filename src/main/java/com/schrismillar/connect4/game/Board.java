@@ -4,14 +4,12 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
-import com.schrismillar.connect4.model.Cell;
-import com.schrismillar.connect4.model.Grid;
-import com.schrismillar.connect4.model.GridData;
-import com.schrismillar.connect4.model.PlayerId;
+import com.schrismillar.connect4.model.*;
 
 public class Board {
     private static final int HEIGHT = 6;
     private static final int WIDTH = 7;
+    private static final int RIGHT = 1;
 
     private final Grid connectFourGrid;
 
@@ -52,7 +50,30 @@ public class Board {
     }
 
     public boolean hasHorizontalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
-        return false;
+        List<Cell> row = connectFourGrid.getRow(cell.getRow());
+        int leftCount = consecutiveSameOwnersInNegativeDirectionUpToAway(row, cell.getColumn(), numberOfNeighbors, cell.owner());
+        int rightCount = consecutiveSameOwnersInPositiveDirectionUpToAway(row, cell.getColumn(), numberOfNeighbors, cell.owner());
+        return leftCount + rightCount >= numberOfNeighbors;
+    }
+
+    private int consecutiveSameOwnersInNegativeDirectionUpToAway(List<Cell> list, int startIndex, int numberOfNeighbors, CellOwnerId owner) {
+            int currentIndex = startIndex - 1;
+            int sameOwnerStreak = 0;
+            while (currentIndex >= 0 && list.get(currentIndex).owner() == owner) {
+                sameOwnerStreak++;
+                currentIndex--;
+            }
+            return sameOwnerStreak;
+    }
+
+    private int consecutiveSameOwnersInPositiveDirectionUpToAway(List<Cell> list, int startIndex, int numberOfNeighbors, CellOwnerId owner) {
+        int currentIndex = startIndex + 1;
+        int sameOwnerStreak = 0;
+        while (currentIndex < list.size() && list.get(currentIndex).owner() == owner) {
+            sameOwnerStreak++;
+            currentIndex++;
+        }
+        return sameOwnerStreak;
     }
 
     public boolean hasVerticalNeighborsBelowBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
