@@ -61,7 +61,15 @@ public class Grid {
     }
 
     public List<Cell> getFirstRow() {
-        return asList(cells[FIRST_ROW].clone());
+        return getRow(FIRST_ROW);
+    }
+
+    public List<Cell> getRow(int row) {
+        List<Cell> rowOfCells = new LinkedList<>();
+        for (int col = 0; col < width(); col++) {
+            rowOfCells.add(cells[row][col]);
+        }
+        return rowOfCells;
     }
 
     public List<Cell> getColumn(int col) {

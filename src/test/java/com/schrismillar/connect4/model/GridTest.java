@@ -76,6 +76,29 @@ public class GridTest {
     }
 
     @Test
+    public void getRowReturnsSpecifiedRowOfCellsAsList() {
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
+
+        List<Cell> secondRow = grid.getRow(1);
+
+        Cell cell1 = new Cell(1, 0, STARTING_OWNER);
+        Cell cell2 = new Cell(1, 1, STARTING_OWNER) ;
+        assertEquals(asList(cell1, cell2), secondRow);
+    }
+
+    @Test
+    public void getRowReturnsListNotBackedByGridsCellsArray() {
+        Grid grid = new Grid(2, 2, STARTING_OWNER);
+        List<Cell> secondRow = grid.getRow(1);
+
+        secondRow.set(0, new Cell(1, 0, NEW_OWNER));
+
+        Cell cell1 = new Cell(1, 0, STARTING_OWNER);
+        Cell cell2 = new Cell(1, 1, STARTING_OWNER) ;
+        assertEquals(asList(cell1, cell2), grid.getRow(1));
+    }
+
+    @Test
     public void getColumnReturnsSpecifiedColumnOfCellsAsList() {
         Grid grid = new Grid(2, 2, STARTING_OWNER);
 
