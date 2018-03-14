@@ -38,4 +38,13 @@ public class CellTest {
 
         assertEquals(COL, column);
     }
+
+    @Test
+    public void getRowReturnsRowIndex() {
+        Cell cell = new Cell(ROW, COL, OWNER);
+
+        int row = cell.getRow();
+
+        assertEquals(ROW, row);
+    }
 }

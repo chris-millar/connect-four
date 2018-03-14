@@ -46,4 +46,8 @@ public class Cell {
     public int getColumn() {
         return col;
     }
+
+    public int getRow() {
+        return row;
+    }
 }
