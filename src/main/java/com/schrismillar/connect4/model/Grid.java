@@ -100,11 +100,11 @@ public class Grid {
     private Cell findBottomOfPositiveDiagonal(Cell cell) {
         int row = cell.getRow();
         int col = cell.getColumn();
-        while (col > 0 && row < height()) {
-            row++;
-            col--;
+        Cell bottomCell = cell;
+        while (col >= 0 && row < height()) {
+            bottomCell = cells[row++][col--];
         }
-        return cells[row][col];
+        return bottomCell;
     }
 
     public Cell assignCellAtPositionTo(int row, int col, CellOwnerId owner) {

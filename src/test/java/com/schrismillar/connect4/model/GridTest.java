@@ -160,6 +160,29 @@ public class GridTest {
         assertEquals(singletonList(cell), positiveDiagonal);
     }
 
+    @Test
+    public void getPositiveDiagonalWithReturnsDiagonalEvenWhenStartingAtBottomOfDiagonal() {
+        Grid grid = new Grid(4, 4, STARTING_OWNER);
+        Cell cell1 = new Cell(3, 1, STARTING_OWNER);
+
+        List<Cell> positiveDiagonal = grid.getPositiveDiagonalWith(cell1);
+
+        Cell cell2 = new Cell(2, 2, STARTING_OWNER);
+        Cell cell3 = new Cell(1, 3, STARTING_OWNER);
+        List<Cell> expectedList = asList(cell1, cell2, cell3);
+        assertEquals(expectedList, positiveDiagonal);
+    }
+
+    @Test
+    public void getPositiveDiagonalWithReturnsDiagonalEvenWhenAskingForGridsBottomRightmostCell() {
+        Grid grid = new Grid(4, 4, STARTING_OWNER);
+        Cell cell = new Cell(3, 3, STARTING_OWNER);
+
+        List<Cell> positiveDiagonal = grid.getPositiveDiagonalWith(cell);
+
+        assertEquals(singletonList(cell), positiveDiagonal);
+    }
+
     private static CellOwnerId cellOwnerIdWithToStringName(String toStringValue) {
         return new CellOwnerId() {
             @Override
