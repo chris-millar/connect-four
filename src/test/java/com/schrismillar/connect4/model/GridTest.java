@@ -1,8 +1,10 @@
 package com.schrismillar.connect4.model;
 
 import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -132,6 +134,30 @@ public class GridTest {
 
         Cell otherCellInRow = new Cell(0, 0, STARTING_OWNER);
         assertEquals(asList(otherCellInRow, expectedCell), grid.getFirstRow());
+    }
+
+    @Test
+    public void getPositiveDiagonalWithReturnsTheListOfCellsMakingThePositiveSlopedDiagonalContainingTheSpecifiedCell() {
+        Grid grid = new Grid(4, 4, STARTING_OWNER);
+        Cell cell3 = new Cell(1, 2, STARTING_OWNER);
+
+        List<Cell> positiveDiagonal = grid.getPositiveDiagonalWith(cell3);
+
+        Cell cell1 = new Cell(3, 0, STARTING_OWNER);
+        Cell cell2 = new Cell(2, 1, STARTING_OWNER);
+        Cell cell4 = new Cell(0, 3, STARTING_OWNER);
+        List<Cell> expectedList = asList(cell1, cell2, cell3, cell4);
+        assertEquals(expectedList, positiveDiagonal);
+    }
+
+    @Test
+    public void getPositiveDiagonalWithReturnsDiagonalEvenIfOnlyThatCellInIt() {
+        Grid grid = new Grid(4, 4, STARTING_OWNER);
+        Cell cell = new Cell(0, 0, STARTING_OWNER);
+
+        List<Cell> positiveDiagonal = grid.getPositiveDiagonalWith(cell);
+
+        assertEquals(singletonList(cell), positiveDiagonal);
     }
 
     private static CellOwnerId cellOwnerIdWithToStringName(String toStringValue) {

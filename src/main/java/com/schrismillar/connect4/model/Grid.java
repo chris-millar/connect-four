@@ -80,6 +80,33 @@ public class Grid {
         return column;
     }
 
+    public List<Cell> getPositiveDiagonalWith(Cell cell) {
+        Cell bottomOfDiagonal = findBottomOfPositiveDiagonal(cell);
+        return buildPositiveDiagonalAsListStartingFrom(bottomOfDiagonal);
+    }
+
+    private List<Cell> buildPositiveDiagonalAsListStartingFrom(Cell bottomOfDiagonal) {
+        List<Cell> diagonal = new LinkedList<>();
+        int row = bottomOfDiagonal.getRow();
+        int col = bottomOfDiagonal.getColumn();
+        while (col < width() && row >= 0) {
+            diagonal.add(cells[row][col]);
+            row--;
+            col++;
+        }
+        return diagonal;
+    }
+
+    private Cell findBottomOfPositiveDiagonal(Cell cell) {
+        int row = cell.getRow();
+        int col = cell.getColumn();
+        while (col > 0 && row < height()) {
+            row++;
+            col--;
+        }
+        return cells[row][col];
+    }
+
     public Cell assignCellAtPositionTo(int row, int col, CellOwnerId owner) {
         Cell newCell = new Cell(row, col, owner);
         cells[row][col] = newCell;
