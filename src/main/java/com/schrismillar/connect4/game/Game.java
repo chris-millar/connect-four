@@ -59,10 +59,10 @@ public class Game {
     }
 
     private boolean isWin(Cell justPlayedCell) {
-        return  board.hasHorizontalNeighborsBelongingTo(3, justPlayedCell) ||
-                board.hasVerticalNeighborsBelowBelongingTo(3, justPlayedCell) ||
-                board.hasPositiveDiagonalNeighborsBelongingTo(3, justPlayedCell) ||
-                board.hasNegativeDiagonalNeighborsBelongingTo(3, justPlayedCell);
+        return  board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, justPlayedCell) ||
+                board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, justPlayedCell) ||
+                board.hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(3, justPlayedCell) ||
+                board.hasNegativeDiagonalNeighborsBelongingToSameOwnerAs(3, justPlayedCell);
     }
 
     private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns) {

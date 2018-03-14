@@ -92,7 +92,7 @@ public class BoardTest {
     }
 
     @Test
-    public void hasVerticalNeighborsBelowBelongingToReturnsTrueIfNumberOfSpecifiedCellsBelowSpecifiedShareSameOwnerAsSpecifiedCell() {
+    public void hasVerticalNeighborsBelowReturnsTrueIfNumberOfSpecifiedCellsBelowSpecifiedShareSameOwnerAsSpecifiedCell() {
         Grid grid = mock(Grid.class);
         Cell playerOneCell0 = new Cell(0, 0, PLAYER_ONE);
         Cell playerOneCell1 = new Cell(1, 0, PLAYER_ONE);
@@ -101,14 +101,14 @@ public class BoardTest {
         when(grid.getColumn(0)).thenReturn(asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3));
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingTo(3, playerOneCell0);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell0);
 
         assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors below",
                 has3NeighborsBelow);
     }
 
     @Test
-    public void hasVerticalNeighborsBelowBelongingToReturnsTrueEvenIfSpecifiedCellIsInMiddleOfColumn() {
+    public void hasVerticalNeighborsBelowReturnsTrueEvenIfSpecifiedCellIsInMiddleOfColumn() {
         Grid grid = mock(Grid.class);
         Cell playerOneCell0 = new Cell(0, 0, PLAYER_TWO);
         Cell playerOneCell1 = new Cell(1, 0, PLAYER_TWO);
@@ -122,14 +122,14 @@ public class BoardTest {
         when(grid.getColumn(0)).thenReturn(column);
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingTo(3, playerOneCell2);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell2);
 
         assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors below",
                 has3NeighborsBelow);
     }
 
     @Test
-    public void hasVerticalNeighborsBelowBelongingToReturnsFalseIfAnyOfSpecifiedNumberOfContiguousCellsBelowHaveDifferentOwner() {
+    public void hasVerticalNeighborsBelowReturnsFalseIfAnyOfSpecifiedNumberOfContiguousCellsBelowHaveDifferentOwner() {
         Grid grid = mock(Grid.class);
         Cell playerOneCell0 = new Cell(0, 0, PLAYER_TWO);
         Cell playerOneCell1 = new Cell(1, 0, PLAYER_TWO);
@@ -143,14 +143,14 @@ public class BoardTest {
         when(grid.getColumn(0)).thenReturn(column);
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingTo(3, playerOneCell2);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell2);
 
-        assertFalse("Expected it to be false because the cell specified has only 1 contiguous neighbor with same owner",
+        assertFalse("Expected false because the cell specified has only 1 contiguous neighbor with same owner",
                 has3NeighborsBelow);
     }
 
     @Test
-    public void hasVerticalNeighborsBelowBelongingToReturnsFalseIfSpecifiedCellIsDoesNotHaveAtLeastTheSpecifiedNumberOfNeighborsBelow() {
+    public void hasVerticalNeighborsBelowReturnsFalseIfSpecifiedCellIsDoesNotHaveAtLeastTheSpecifiedNumberOfNeighborsBelow() {
         Grid grid = mock(Grid.class);
         Cell playerOneCell0 = new Cell(0, 0, PLAYER_TWO);
         Cell playerOneCell1 = new Cell(1, 0, PLAYER_TWO);
@@ -164,9 +164,9 @@ public class BoardTest {
         when(grid.getColumn(0)).thenReturn(column);
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingTo(3, playerOneCell4);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell4);
 
-        assertFalse("Expected it to be false because the cell specified has only 2 neighbors below but we asked if it had 3 with same owner",
+        assertFalse("Expected false because specified cell has only 2 neighbors below but we asked if it had 3 with same owner",
                 has3NeighborsBelow);
     }
 }

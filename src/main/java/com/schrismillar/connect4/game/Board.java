@@ -51,11 +51,11 @@ public class Board {
         return connectFourGrid.getGridData();
     }
 
-    public boolean hasHorizontalNeighborsBelongingTo(int numberOfNeighbors, Cell cell) {
+    public boolean hasHorizontalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
         return false;
     }
 
-    public boolean hasVerticalNeighborsBelowBelongingTo(int numberOfNeighbors, Cell cell) {
+    public boolean hasVerticalNeighborsBelowBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
         List<Cell> column = connectFourGrid.getColumn(cell.getColumn());
         boolean cellNotToCloseToEndOfColumn = cell.getRow() + numberOfNeighbors < column.size();
         return cellNotToCloseToEndOfColumn && doAllCellsFromNextToNumberCellsAwayShareSameOwner(numberOfNeighbors, cell, column);
@@ -68,11 +68,11 @@ public class Board {
                 allMatch(c -> c.owner() == cell.owner());
     }
 
-    public boolean hasPositiveDiagonalNeighborsBelongingTo(int numberOfNeighbors, Cell cell) {
+    public boolean hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
         return false;
     }
 
-    public boolean hasNegativeDiagonalNeighborsBelongingTo(int numberOfNeighbors, Cell cell) {
+    public boolean hasNegativeDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
         return false;
     }
 }
