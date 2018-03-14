@@ -5,15 +5,14 @@ import com.schrismillar.connect4.model.GridData;
 
 public class DisplayGridImpl implements DisplayGrid {
     private static final String NEW_LINE = "\n";
+    private static final int BASE_1_COLUMN_IDS = 1;
 
     private final GridData gridData;
     private final CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper;
-    private final int columnIdBase;
 
-    public DisplayGridImpl(GridData gridData, CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper, int columnIdBase) {
+    public DisplayGridImpl(GridData gridData, CellOwnerToDisplayCellMapper cellOwnerToDisplayCellMapper) {
         this.gridData = gridData;
         this.cellOwnerToDisplayCellMapper = cellOwnerToDisplayCellMapper;
-        this.columnIdBase = columnIdBase;
     }
 
     @Override
@@ -38,7 +37,7 @@ public class DisplayGridImpl implements DisplayGrid {
     private String columnIdsFor(int width) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int col = 0; col < width; col++) {
-            stringBuilder.append("|-").append(col + columnIdBase).append("-|");
+            stringBuilder.append("|-").append(col + BASE_1_COLUMN_IDS).append("-|");
         }
         return stringBuilder.toString();
     }
