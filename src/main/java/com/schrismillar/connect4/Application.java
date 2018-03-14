@@ -14,7 +14,7 @@ public class Application {
     private void start() {
         ConsolePrinter consolePrinter = new ConsolePrinter();
         ConsoleScanner consoleScanner = new ConsoleScanner();
-        CommandLineGameOrganizer commandLineGameOrganizer = new CommandLineGameOrganizer(consolePrinter, consoleScanner);
+        CommandLineGameOrganizer commandLineGameOrganizer = new CommandLineGameOrganizer(consolePrinter);
         while (true) {
             if (shouldPlayNewGame(consolePrinter, consoleScanner)) {
                 commandLineGameOrganizer.playNewGame();

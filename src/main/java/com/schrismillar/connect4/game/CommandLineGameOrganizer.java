@@ -6,7 +6,6 @@ import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.*;
 import com.schrismillar.connect4.util.ConsolePrinter;
-import com.schrismillar.connect4.util.ConsoleScanner;
 
 public class CommandLineGameOrganizer {
     private static final DisplayCell EMPTY_DISPLAY_CELL = new EmptyDisplayCell();
@@ -27,11 +26,9 @@ public class CommandLineGameOrganizer {
     };
 
     private final ConsolePrinter consolePrinter;
-    private final ConsoleScanner consoleScanner;
 
-    public CommandLineGameOrganizer(ConsolePrinter consolePrinter, ConsoleScanner consoleScanner) {
+    public CommandLineGameOrganizer(ConsolePrinter consolePrinter) {
         this.consolePrinter = consolePrinter;
-        this.consoleScanner = consoleScanner;
     }
 
     public void playNewGame() {
