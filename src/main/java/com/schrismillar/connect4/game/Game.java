@@ -60,7 +60,10 @@ public class Game {
     }
 
     private boolean isWin(Cell justPlayedCell) {
-        return false;
+        return  connectFourBoard.hasHorizontalNeighborsBelongingTo(3, justPlayedCell) ||
+                connectFourBoard.hasVerticalNeighborsBelowBelongingTo(3, justPlayedCell) ||
+                connectFourBoard.hasPositiveDiagonalNeighborsBelongingTo(3, justPlayedCell) ||
+                connectFourBoard.hasNegativeDiagonalNeighborsBelongingTo(3, justPlayedCell);
     }
 
     private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns) {

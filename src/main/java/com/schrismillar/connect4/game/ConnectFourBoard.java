@@ -50,4 +50,20 @@ public class ConnectFourBoard {
     public GridData getGridData() {
         return connectFourGrid.getGridData();
     }
+
+    public boolean hasHorizontalNeighborsBelongingTo(int numberOfNeighbors, Cell cell) {
+        return false;
+    }
+
+    public boolean hasVerticalNeighborsBelowBelongingTo(int numberOfNeighbors, Cell cell) {
+        return false;
+    }
+
+    public boolean hasPositiveDiagonalNeighborsBelongingTo(int numberOfNeighbors, Cell cell) {
+        return false;
+    }
+
+    public boolean hasNegativeDiagonalNeighborsBelongingTo(int numberOfNeighbors, Cell cell) {
+        return false;
+    }
 }
