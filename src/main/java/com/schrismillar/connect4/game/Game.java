@@ -5,23 +5,22 @@ import java.util.stream.Collectors;
 
 import com.schrismillar.connect4.model.Cell;
 import com.schrismillar.connect4.model.GridData;
-import com.schrismillar.connect4.model.PlayerId;
 
 public class Game {
     private final Player nextPlayer;
-    private final ConnectFourBoard connectFourBoard;
+    private final Board board;
     private final Player currentPlayer;
     private final GameState currentGameState;
 
-    public Game(Player currentPlayer, Player nextPlayer, ConnectFourBoard connectFourBoard, GameState currentGameState) {
+    public Game(Player currentPlayer, Player nextPlayer, Board board, GameState currentGameState) {
         this.currentPlayer = currentPlayer;
         this.nextPlayer = nextPlayer;
-        this.connectFourBoard = connectFourBoard;
+        this.board = board;
         this.currentGameState = currentGameState;
     }
 
     public GridData getGridData() {
-        return connectFourBoard.getGridData();
+        return board.getGridData();
     }
 
     public boolean isActive() {
@@ -34,10 +33,10 @@ public class Game {
 
     public Game takeTurnForCurrentPlayer() {
         //Step 1: decide play
-        int columnChoice = promptForPlayerColumnChoice(currentPlayer, connectFourBoard.availableColumnIds());
+        int columnChoice = promptForPlayerColumnChoice(currentPlayer, board.availableColumnIds());
 
         //Step 2: make play
-        Cell justPlayedCell = connectFourBoard.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
+        Cell justPlayedCell = board.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
 
         //Step 3: determine new GameState (was win or tie?)
         //TODO
@@ -46,24 +45,24 @@ public class Game {
         //Step 4: allow other player to observe play that just happened
         //otherPlayer().observePlay(justPlayedCell)
 
-        return new Game(nextPlayer, currentPlayer, connectFourBoard, determineNewState(justPlayedCell));
+        return new Game(nextPlayer, currentPlayer, board, determineNewState(justPlayedCell));
     }
 
     private GameState determineNewState(Cell justPlayedCell) {
         if (isWin(justPlayedCell)) {
             return new WinGameState(currentPlayer);
         };
-        if (connectFourBoard.availableColumnIds().isEmpty()) {
+        if (board.availableColumnIds().isEmpty()) {
             return new TieGameState();
         }
         return new ActiveGameState();
     }
 
     private boolean isWin(Cell justPlayedCell) {
-        return  connectFourBoard.hasHorizontalNeighborsBelongingTo(3, justPlayedCell) ||
-                connectFourBoard.hasVerticalNeighborsBelowBelongingTo(3, justPlayedCell) ||
-                connectFourBoard.hasPositiveDiagonalNeighborsBelongingTo(3, justPlayedCell) ||
-                connectFourBoard.hasNegativeDiagonalNeighborsBelongingTo(3, justPlayedCell);
+        return  board.hasHorizontalNeighborsBelongingTo(3, justPlayedCell) ||
+                board.hasVerticalNeighborsBelowBelongingTo(3, justPlayedCell) ||
+                board.hasPositiveDiagonalNeighborsBelongingTo(3, justPlayedCell) ||
+                board.hasNegativeDiagonalNeighborsBelongingTo(3, justPlayedCell);
     }
 
     private int promptForPlayerColumnChoice(Player currentPlayer, List<Integer> availableColumns) {

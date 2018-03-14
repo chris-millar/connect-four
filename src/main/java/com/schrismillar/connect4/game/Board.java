@@ -9,17 +9,17 @@ import com.schrismillar.connect4.model.Grid;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 
-public class ConnectFourBoard {
+public class Board {
     private static final int HEIGHT = 6;
     private static final int WIDTH = 7;
 
     private final Grid connectFourGrid;
 
-    public ConnectFourBoard() {
+    public Board() {
         connectFourGrid = new Grid(HEIGHT, WIDTH, PlayerId.NONE);
     }
 
-    ConnectFourBoard(Grid grid) {
+    Board(Grid grid) {
         connectFourGrid = grid;
     }
 

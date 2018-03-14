@@ -14,11 +14,11 @@ import com.schrismillar.connect4.model.Grid;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 
-public class ConnectFourBoardTest {
+public class BoardTest {
 
     @Test
     public void getAvailableColumnIdsReturnsAllSevenColumnIdsForNewGrid() {
-        ConnectFourBoard board = new ConnectFourBoard();
+        Board board = new Board();
 
         List<Integer> availableColumnIds = board.availableColumnIds();
 
@@ -36,7 +36,7 @@ public class ConnectFourBoardTest {
         Cell cell5 = new Cell(0, 5, PlayerId.PLAYER_ONE);
         Cell cell6 = new Cell(0, 6, PlayerId.NONE);
         when(grid.getFirstRow()).thenReturn(asList(cell0, cell1, cell2, cell3, cell4, cell5, cell6));
-        ConnectFourBoard board = new ConnectFourBoard(grid);
+        Board board = new Board(grid);
 
         List<Integer> availableColumnIds = board.availableColumnIds();
 
@@ -48,7 +48,7 @@ public class ConnectFourBoardTest {
         Grid grid = mock(Grid.class);
         GridData gridData = mock(GridData.class);
         when(grid.getGridData()).thenReturn(gridData);
-        ConnectFourBoard board = new ConnectFourBoard(grid);
+        Board board = new Board(grid);
 
         GridData actualGridData = board.getGridData();
 
@@ -65,7 +65,7 @@ public class ConnectFourBoardTest {
         when(grid.getColumn(0)).thenReturn(asList(unOwnedCell1, unOwnedCell2, ownedCell1, ownedCell2));
         when(grid.assignCellAtPositionTo(1, 0, PlayerId.PLAYER_ONE)).
                 thenReturn(new Cell(1, 0, PlayerId.PLAYER_ONE));
-        ConnectFourBoard board = new ConnectFourBoard(grid);
+        Board board = new Board(grid);
 
         Cell cell = board.dropIntoColumn(0, PlayerId.PLAYER_ONE);
 
@@ -82,7 +82,7 @@ public class ConnectFourBoardTest {
         when(grid.getColumn(0)).thenReturn(asList(unOwnedCell1, unOwnedCell2, unOwnedCell3, unOwnedCell4));
         when(grid.assignCellAtPositionTo(3, 0, PlayerId.PLAYER_ONE)).
                 thenReturn(new Cell(3, 0, PlayerId.PLAYER_ONE));
-        ConnectFourBoard board = new ConnectFourBoard(grid);
+        Board board = new Board(grid);
 
         Cell cell = board.dropIntoColumn(0, PlayerId.PLAYER_ONE);
 

@@ -51,8 +51,8 @@ public class CommandLineGameOrganizer {
     }
 
     private Game beginGameWith(Player playerOne, Player playerTwo) {
-        ConnectFourBoard connectFourBoard = new ConnectFourBoard();
-        Game game = new Game(playerOne, playerTwo, connectFourBoard, new ActiveGameState());
+        Board board = new Board();
+        Game game = new Game(playerOne, playerTwo, board, new ActiveGameState());
         GridData startGridData = game.getGridData();
         consolePrinter.println("The game is starting. Here is the Connect Four board.");
         printGridData(startGridData);
