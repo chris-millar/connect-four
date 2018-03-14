@@ -78,15 +78,8 @@ public class Board {
 
     public boolean hasVerticalNeighborsBelowBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
         List<Cell> column = connectFourGrid.getColumn(cell.getColumn());
-        boolean cellNotToCloseToEndOfColumn = cell.getRow() + numberOfNeighbors < column.size();
-        return cellNotToCloseToEndOfColumn && doAllCellsFromNextToNumberCellsAwayShareSameOwner(numberOfNeighbors, cell, column);
-    }
-
-    private boolean doAllCellsFromNextToNumberCellsAwayShareSameOwner(int numberOfNeighbors, Cell cell, List<Cell> column) {
-        return column.
-                subList(cell.getRow() + 1, cell.getRow() + numberOfNeighbors + 1).
-                stream().
-                allMatch(c -> c.owner() == cell.owner());
+        int downCount = consecutiveSameOwnersInPositiveDirectionUpToAway(column, cell.getRow(), numberOfNeighbors, cell.owner());
+        return downCount >= numberOfNeighbors;
     }
 
     public boolean hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
