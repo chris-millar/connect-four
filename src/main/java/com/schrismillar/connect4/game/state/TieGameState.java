@@ -1,6 +1,8 @@
-package com.schrismillar.connect4.game;
+package com.schrismillar.connect4.game.state;
 
 import java.util.Optional;
+
+import com.schrismillar.connect4.game.Player;
 
 public class TieGameState implements GameState {
     @Override

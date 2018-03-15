@@ -1,0 +1,23 @@
+package com.schrismillar.connect4.game.state;
+
+import static org.junit.Assert.*;
+
+import java.util.Optional;
+
+import org.junit.Test;
+
+public class ActiveGameStateTest {
+    @Test
+    public void isActiveReturnsTrue() {
+        ActiveGameState activeGameState = new ActiveGameState();
+
+        assertTrue("ActiveGameState should always return true for #isActive", activeGameState.isActive());
+    }
+
+    @Test
+    public void winnerReturnsEmptyOptional() {
+        ActiveGameState activeGameState = new ActiveGameState();
+
+        assertEquals(Optional.empty(), activeGameState.winner());
+    }
+}

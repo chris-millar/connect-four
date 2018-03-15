@@ -3,6 +3,10 @@ package com.schrismillar.connect4.game;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.schrismillar.connect4.game.state.ActiveGameState;
+import com.schrismillar.connect4.game.state.GameState;
+import com.schrismillar.connect4.game.state.TieGameState;
+import com.schrismillar.connect4.game.state.WinGameState;
 import com.schrismillar.connect4.model.Cell;
 import com.schrismillar.connect4.model.GridData;
 

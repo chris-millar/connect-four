@@ -2,6 +2,7 @@ package com.schrismillar.connect4.game;
 
 import java.util.Optional;
 
+import com.schrismillar.connect4.game.state.ActiveGameState;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.*;
@@ -39,7 +40,6 @@ public class CommandLineGameOrganizer {
         while(game.getCurrentGameState().isActive()) {
             game = game.takeTurnForCurrentPlayer();
             printGridData(game.getGridData());
-
         }
         Optional<Player> winner = game.getCurrentGameState().winner();
         String gameOverMessage = winner.map(player -> "The Winner is " + player.getPlayerId() + "!").
