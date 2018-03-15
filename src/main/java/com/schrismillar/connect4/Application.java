@@ -6,15 +6,27 @@ import com.schrismillar.connect4.util.ConsoleScanner;
 
 public class Application {
 
-    public static void main(String[] args) {
-        Application application = new Application();
-        application.start();
+    private final ConsolePrinter consolePrinter;
+    private final ConsoleScanner consoleScanner;
+    private final CommandLineGameOrganizer commandLineGameOrganizer;
+
+    Application(ConsolePrinter consolePrinter,
+                        ConsoleScanner consoleScanner,
+                        CommandLineGameOrganizer commandLineGameOrganizer) {
+        this.consolePrinter = consolePrinter;
+        this.consoleScanner = consoleScanner;
+        this.commandLineGameOrganizer = commandLineGameOrganizer;
     }
 
-    private void start() {
+    public static void main(String[] args) {
         ConsolePrinter consolePrinter = new ConsolePrinter();
         ConsoleScanner consoleScanner = new ConsoleScanner();
         CommandLineGameOrganizer commandLineGameOrganizer = new CommandLineGameOrganizer(consolePrinter);
+        Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
+        application.start();
+    }
+
+    void start() {
         while (true) {
             if (shouldPlayNewGame(consolePrinter, consoleScanner)) {
                 commandLineGameOrganizer.playNewGame();
