@@ -1,4 +1,4 @@
-package com.schrismillar.connect4.game;
+package com.schrismillar.connect4.game.player;
 
 import static com.schrismillar.connect4.model.PlayerId.PLAYER_ONE;
 import static java.util.Arrays.asList;
