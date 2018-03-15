@@ -1,6 +1,7 @@
 package com.schrismillar.connect4.game;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import com.schrismillar.connect4.game.player.Player;
@@ -12,9 +13,9 @@ import com.schrismillar.connect4.model.Cell;
 import com.schrismillar.connect4.model.GridData;
 
 public class Game {
+    private final Player currentPlayer;
     private final Player nextPlayer;
     private final Board board;
-    private final Player currentPlayer;
     private final GameState currentGameState;
 
     public Game(Player currentPlayer, Player nextPlayer, Board board, GameState currentGameState) {
@@ -66,5 +67,32 @@ public class Game {
 
     public GameState getCurrentGameState() {
         return currentGameState;
+    }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "currentPlayer=" + currentPlayer +
+                ", nextPlayer=" + nextPlayer +
+                ", board=" + board +
+                ", currentGameState=" + currentGameState +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Game) {
+            Game that = (Game) obj;
+            return Objects.equals(this.currentPlayer, that.currentPlayer) &&
+                    Objects.equals(this.nextPlayer, that.nextPlayer) &&
+                    Objects.equals(this.board, that.board) &&
+                    Objects.equals(this.currentGameState, that.currentGameState);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentPlayer, nextPlayer, board, currentGameState);
     }
 }
