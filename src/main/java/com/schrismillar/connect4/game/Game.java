@@ -28,26 +28,11 @@ public class Game {
         return board.getGridData();
     }
 
-    public boolean isActive() {
-        return currentGameState.isActive();
-    }
-
-    public boolean isOver() {
-        return !currentGameState.isActive();
-    }
-
     public Game takeTurnForCurrentPlayer() {
-        //Step 1: decide play
         int columnChoice = promptForPlayerColumnChoice(currentPlayer, board.availableColumnIds());
-
-        //Step 2: make play
         Cell justPlayedCell = board.dropIntoColumn(columnChoice, currentPlayer.getPlayerId());
 
-        //Step 3: determine new GameState (was win or tie?)
-        //TODO
-        //return gridData and
-
-        //Step 4: allow other player to observe play that just happened
+        //TODO - add AI players and allow them to observe a play
         //otherPlayer().observePlay(justPlayedCell)
 
         return new Game(nextPlayer, currentPlayer, board, determineNewState(justPlayedCell));
@@ -56,11 +41,15 @@ public class Game {
     private GameState determineNewState(Cell justPlayedCell) {
         if (isWin(justPlayedCell)) {
             return new WinGameState(currentPlayer);
-        };
-        if (board.availableColumnIds().isEmpty()) {
+        }
+        if (noMoreUnownedCells()) {
             return new TieGameState();
         }
         return new ActiveGameState();
+    }
+
+    private boolean noMoreUnownedCells() {
+        return board.availableColumnIds().isEmpty();
     }
 
     private boolean isWin(Cell justPlayedCell) {
