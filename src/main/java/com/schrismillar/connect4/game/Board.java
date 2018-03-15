@@ -9,7 +9,6 @@ import com.schrismillar.connect4.model.*;
 public class Board {
     private static final int HEIGHT = 6;
     private static final int WIDTH = 7;
-    private static final int RIGHT = 1;
 
     private final Grid connectFourGrid;
 
