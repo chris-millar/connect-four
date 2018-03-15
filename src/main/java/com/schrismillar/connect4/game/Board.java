@@ -65,14 +65,17 @@ public class Board {
     public boolean hasPositiveDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
         List<Cell> positiveDiagonal = connectFourGrid.getPositiveDiagonalWith(cell);
         int cellsIndexInDiagonal = positiveDiagonal.indexOf(cell);
-        int upCount = consecutiveSameOwnersInPositiveDirectionUpToAway(positiveDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
-        int downCount = consecutiveSameOwnersInNegativeDirectionUpToAway(positiveDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
-
-        return upCount + downCount >= numberOfNeighbors;
+        int upSlopeCount = consecutiveSameOwnersInPositiveDirectionUpToAway(positiveDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
+        int downSlopeCount = consecutiveSameOwnersInNegativeDirectionUpToAway(positiveDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
+        return upSlopeCount + downSlopeCount >= numberOfNeighbors;
     }
 
     public boolean hasNegativeDiagonalNeighborsBelongingToSameOwnerAs(int numberOfNeighbors, Cell cell) {
-        return false;
+        List<Cell> negativeDiagonal = connectFourGrid.getNegativeDiagonalWith(cell);
+        int cellsIndexInDiagonal = negativeDiagonal.indexOf(cell);
+        int upSlopeCount = consecutiveSameOwnersInNegativeDirectionUpToAway(negativeDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
+        int downSlopeCount = consecutiveSameOwnersInPositiveDirectionUpToAway(negativeDiagonal, cellsIndexInDiagonal, numberOfNeighbors, cell.owner());
+        return upSlopeCount + downSlopeCount >= numberOfNeighbors;
     }
 
     private int consecutiveSameOwnersInNegativeDirectionUpToAway(List<Cell> list, int startIndex, int numberOfNeighbors, CellOwnerId owner) {
