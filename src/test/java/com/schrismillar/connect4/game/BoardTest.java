@@ -4,8 +4,7 @@ import static com.schrismillar.connect4.model.PlayerId.PLAYER_ONE;
 import static com.schrismillar.connect4.model.PlayerId.PLAYER_TWO;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import java.util.List;
 
