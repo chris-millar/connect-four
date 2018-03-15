@@ -107,6 +107,33 @@ public class Grid {
         return bottomCell;
     }
 
+    public List<Cell> getNegativeDiagonalWith(Cell cell) {
+        Cell topOfDiagonal = findTopOfNegativeDiagonal(cell);
+        return buildNegativeDiagonalAsListStartingFrom(topOfDiagonal);
+    }
+
+    private List<Cell> buildNegativeDiagonalAsListStartingFrom(Cell topOfDiagonal) {
+        List<Cell> diagonal = new LinkedList<>();
+        int row = topOfDiagonal.getRow();
+        int col = topOfDiagonal.getColumn();
+        while (col < width() && row < height()) {
+            diagonal.add(cells[row][col]);
+            row++;
+            col++;
+        }
+        return diagonal;
+    }
+
+    private Cell findTopOfNegativeDiagonal(Cell cell) {
+        int row = cell.getRow();
+        int col = cell.getColumn();
+        Cell topCell = cell;
+        while (col >= 0 && row >= 0) {
+            topCell = cells[row--][col--];
+        }
+        return topCell;
+    }
+
     public Cell assignCellAtPositionTo(int row, int col, CellOwnerId owner) {
         Cell newCell = new Cell(row, col, owner);
         cells[row][col] = newCell;

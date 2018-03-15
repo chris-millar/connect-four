@@ -183,6 +183,43 @@ public class GridTest {
         assertEquals(singletonList(cell), positiveDiagonal);
     }
 
+    @Test
+    public void getNegativeDiagonalWithReturnsTheListOfCellsMakingTheNegativeSlopedDiagonalContainingTheSpecifiedCell() {
+        Grid grid = new Grid(4, 4, STARTING_OWNER);
+        Cell cell2 = new Cell(1, 1, STARTING_OWNER);
+
+        List<Cell> negativeDiagonal = grid.getNegativeDiagonalWith(cell2);
+
+        Cell cell1 = new Cell(0, 0, STARTING_OWNER);
+        Cell cell3 = new Cell(2, 2, STARTING_OWNER);
+        Cell cell4 = new Cell(3, 3, STARTING_OWNER);
+        List<Cell> expectedList = asList(cell1, cell2, cell3, cell4);
+        assertEquals(expectedList, negativeDiagonal);
+    }
+
+    @Test
+    public void getNegativeDiagonalWithReturnsDiagonalEvenIfOnlyThatCellInIt() {
+        Grid grid = new Grid(4, 4, STARTING_OWNER);
+        Cell cell = new Cell(3, 0, STARTING_OWNER);
+
+        List<Cell> negativeDiagonal = grid.getNegativeDiagonalWith(cell);
+
+        assertEquals(singletonList(cell), negativeDiagonal);
+    }
+
+    @Test
+    public void getNegativeDiagonalWithReturnsDiagonalEvenWhenStartingAtTopOfDiagonal() {
+        Grid grid = new Grid(4, 4, STARTING_OWNER);
+        Cell cell1 = new Cell(1, 0, STARTING_OWNER);
+
+        List<Cell> negativeDiagonal = grid.getNegativeDiagonalWith(cell1);
+
+        Cell cell2 = new Cell(2, 1, STARTING_OWNER);
+        Cell cell3 = new Cell(3, 2, STARTING_OWNER);
+        List<Cell> expectedList = asList(cell1, cell2, cell3);
+        assertEquals(expectedList, negativeDiagonal);
+    }
+
     private static CellOwnerId cellOwnerIdWithToStringName(String toStringValue) {
         return new CellOwnerId() {
             @Override
