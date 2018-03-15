@@ -16,6 +16,11 @@ public class TieGameState implements GameState {
     }
 
     @Override
+    public String message() {
+        return "No winner today, this is a tie game.";
+    }
+
+    @Override
     public String toString() {
         return "TieGameState{}";
     }

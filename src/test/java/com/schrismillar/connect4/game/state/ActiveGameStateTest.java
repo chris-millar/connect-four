@@ -23,6 +23,13 @@ public class ActiveGameStateTest {
     }
 
     @Test
+    public void messageReturnsEmptyString() {
+        ActiveGameState activeGameState = new ActiveGameState();
+
+        assertEquals("", activeGameState.message());
+    }
+
+    @Test
     public void equalsReturnsTrueIfOtherIsAlsoActiveGameState() {
         GameState otherGameState = mock(GameState.class);
         assertEquals(new ActiveGameState(), new ActiveGameState());

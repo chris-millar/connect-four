@@ -2,12 +2,14 @@ package com.schrismillar.connect4.game.state;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
 import org.junit.Test;
 
 import com.schrismillar.connect4.game.player.Player;
+import com.schrismillar.connect4.model.PlayerId;
 
 public class WinGameStateTest {
     @Test
@@ -23,6 +25,15 @@ public class WinGameStateTest {
         WinGameState winGameState = new WinGameState(winningPlayer);
 
         assertEquals(Optional.of(winningPlayer), winGameState.winner());
+    }
+
+    @Test
+    public void messageReturnsWinMessageThatIncludesWinningPlayersId() {
+        Player winningPlayer = mock(Player.class);
+        when(winningPlayer.getPlayerId()).thenReturn(PlayerId.PLAYER_ONE);
+        WinGameState winGameState = new WinGameState(winningPlayer);
+
+        assertEquals("The Winner is " + PlayerId.PLAYER_ONE + "!", winGameState.message());
     }
 
     @Test

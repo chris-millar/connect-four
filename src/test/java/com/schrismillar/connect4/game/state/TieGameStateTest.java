@@ -23,6 +23,13 @@ public class TieGameStateTest {
     }
 
     @Test
+    public void messageReturnsTieMessage() {
+        TieGameState tieGameState = new TieGameState();
+
+        assertEquals("No winner today, this is a tie game.", tieGameState.message());
+    }
+
+    @Test
     public void equalsReturnsTrueIfOtherIsAlsoTieGameState() {
         GameState otherGameState = mock(GameState.class);
         assertEquals(new TieGameState(), new TieGameState());

@@ -16,6 +16,11 @@ public class ActiveGameState implements GameState {
     }
 
     @Override
+    public String message() {
+        return "";
+    }
+
+    @Override
     public String toString() {
         return "ActiveGameState{}";
     }

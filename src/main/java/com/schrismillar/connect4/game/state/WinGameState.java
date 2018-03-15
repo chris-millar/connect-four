@@ -23,6 +23,11 @@ public class WinGameState implements GameState {
     }
 
     @Override
+    public String message() {
+        return "The Winner is " + winner.getPlayerId() + "!";
+    }
+
+    @Override
     public String toString() {
         return "WinGameState{" +
                 "winner=" + winner +
