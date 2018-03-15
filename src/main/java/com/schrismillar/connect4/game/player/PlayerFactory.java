@@ -1,4 +1,4 @@
-package com.schrismillar.connect4.game;
+package com.schrismillar.connect4.game.player;
 
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.util.ConsolePrinter;

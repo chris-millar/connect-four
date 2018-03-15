@@ -1,4 +1,4 @@
-package com.schrismillar.connect4.game;
+package com.schrismillar.connect4.game.player;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ public class HumanPlayer implements Player {
     private final ConsolePrinter consolePrinter;
     private final ConsoleScanner consoleScanner;
 
-    HumanPlayer(PlayerId playerId, ConsolePrinter consolePrinter, ConsoleScanner consoleScanner) {
+    public HumanPlayer(PlayerId playerId, ConsolePrinter consolePrinter, ConsoleScanner consoleScanner) {
         this.playerId = playerId;
         this.consolePrinter = consolePrinter;
         this.consoleScanner = consoleScanner;

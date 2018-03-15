@@ -1,4 +1,4 @@
-package com.schrismillar.connect4.game;
+package com.schrismillar.connect4.game.player;
 
 import java.util.List;
 

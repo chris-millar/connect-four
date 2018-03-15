@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import com.schrismillar.connect4.game.Player;
+import com.schrismillar.connect4.game.player.Player;
 
 public class WinGameStateTest {
     @Test

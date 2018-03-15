@@ -2,6 +2,8 @@ package com.schrismillar.connect4.game;
 
 import java.util.Optional;
 
+import com.schrismillar.connect4.game.player.Player;
+import com.schrismillar.connect4.game.player.PlayerFactory;
 import com.schrismillar.connect4.game.state.ActiveGameState;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;

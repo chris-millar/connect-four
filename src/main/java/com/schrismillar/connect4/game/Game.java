@@ -3,6 +3,7 @@ package com.schrismillar.connect4.game;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.schrismillar.connect4.game.player.Player;
 import com.schrismillar.connect4.game.state.ActiveGameState;
 import com.schrismillar.connect4.game.state.GameState;
 import com.schrismillar.connect4.game.state.TieGameState;

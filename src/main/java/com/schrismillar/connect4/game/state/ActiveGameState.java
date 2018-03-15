@@ -2,7 +2,7 @@ package com.schrismillar.connect4.game.state;
 
 import java.util.Optional;
 
-import com.schrismillar.connect4.game.Player;
+import com.schrismillar.connect4.game.player.Player;
 
 public class ActiveGameState implements GameState {
     @Override
