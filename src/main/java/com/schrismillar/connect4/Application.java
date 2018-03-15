@@ -1,6 +1,9 @@
 package com.schrismillar.connect4;
 
 import com.schrismillar.connect4.game.CommandLineGameOrganizer;
+import com.schrismillar.connect4.game.GameFactory;
+import com.schrismillar.connect4.game.player.PlayerFactory;
+import com.schrismillar.connect4.ui.DisplayGridPrinter;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
 
@@ -21,7 +24,12 @@ public class Application {
     public static void main(String[] args) {
         ConsolePrinter consolePrinter = new ConsolePrinter();
         ConsoleScanner consoleScanner = new ConsoleScanner();
-        CommandLineGameOrganizer commandLineGameOrganizer = new CommandLineGameOrganizer(consolePrinter);
+        GameFactory gameFactory = new GameFactory();
+        PlayerFactory playerFactory = new PlayerFactory();
+        DisplayGridPrinter displayGridPrinter = new DisplayGridPrinter(consolePrinter);
+        CommandLineGameOrganizer commandLineGameOrganizer =
+                new CommandLineGameOrganizer(consolePrinter, gameFactory, playerFactory, displayGridPrinter);
+
         Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
         application.start();
     }

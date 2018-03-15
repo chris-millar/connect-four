@@ -1,37 +1,24 @@
 package com.schrismillar.connect4.game;
 
-import java.util.Optional;
-
 import com.schrismillar.connect4.game.player.Player;
 import com.schrismillar.connect4.game.player.PlayerFactory;
-import com.schrismillar.connect4.game.state.ActiveGameState;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
-import com.schrismillar.connect4.ui.*;
+import com.schrismillar.connect4.ui.DisplayGridPrinter;
 import com.schrismillar.connect4.util.ConsolePrinter;
 
 public class CommandLineGameOrganizer {
-    private static final DisplayCell EMPTY_DISPLAY_CELL = new EmptyDisplayCell();
-    private static final DisplayCell RED_DISPLAY_CELL = new RedDisplayCell();
-    private static final DisplayCell YELLOW_DISPLAY_CELL = new YellowDisplayCell();
-    private static final CellOwnerToDisplayCellMapper MAPPER = owner -> {
-        if (owner instanceof PlayerId) {
-            if (owner == PlayerId.PLAYER_ONE) {
-                return RED_DISPLAY_CELL;
-            } else if (owner == PlayerId.PLAYER_TWO) {
-                return YELLOW_DISPLAY_CELL;
-            } else {
-                return EMPTY_DISPLAY_CELL;
-            }
-        } else {
-            return EMPTY_DISPLAY_CELL;
-        }
-    };
-
     private final ConsolePrinter consolePrinter;
+    private final GameFactory gameFactory;
+    private final PlayerFactory playerFactory;
+    private final DisplayGridPrinter displayGridPrinter;
 
-    public CommandLineGameOrganizer(ConsolePrinter consolePrinter) {
+    public CommandLineGameOrganizer(ConsolePrinter consolePrinter, GameFactory gameFactory, PlayerFactory playerFactory,
+                                    DisplayGridPrinter displayGridPrinter) {
         this.consolePrinter = consolePrinter;
+        this.gameFactory = gameFactory;
+        this.playerFactory = playerFactory;
+        this.displayGridPrinter = displayGridPrinter;
     }
 
     public void playNewGame() {
@@ -43,15 +30,12 @@ public class CommandLineGameOrganizer {
             game = game.takeTurnForCurrentPlayer();
             printGridData(game.getGridData());
         }
-        Optional<Player> winner = game.getCurrentGameState().winner();
-        String gameOverMessage = winner.map(player -> "The Winner is " + player.getPlayerId() + "!").
-                orElse("No winner today, this is a tie game.");
-        consolePrinter.println(gameOverMessage);
+
+        consolePrinter.println(game.getCurrentGameState().message());
     }
 
     private Game beginGameWith(Player playerOne, Player playerTwo) {
-        Board board = new Board();
-        Game game = new Game(playerOne, playerTwo, board, new ActiveGameState());
+        Game game = gameFactory.createGameWith(playerOne, playerTwo);
         GridData startGridData = game.getGridData();
         consolePrinter.println("The game is starting. Here is the Connect Four board.");
         printGridData(startGridData);
@@ -59,11 +43,11 @@ public class CommandLineGameOrganizer {
     }
 
     private void printGridData(GridData gridData) {
-        consolePrinter.println(new DisplayGridImpl(gridData, MAPPER).displayValue());
+        displayGridPrinter.printGrid(gridData);
         consolePrinter.printBlankLine();
     }
 
     private Player decidePlayer(PlayerId playerId) {
-        return PlayerFactory.instance().createHumanPlayerWith(playerId);
+        return playerFactory.createHumanPlayerWith(playerId);
     }
 }
