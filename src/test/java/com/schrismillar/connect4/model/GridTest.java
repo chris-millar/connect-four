@@ -14,15 +14,6 @@ public class GridTest {
     private static final CellOwnerId NEW_OWNER = cellOwnerIdWithToStringName("New Owner");
 
     @Test
-    public void cellOwnersReturnsListOfOwnersOfAllCellsInGrid() {
-        Grid grid = new Grid(2, 2, STARTING_OWNER);
-
-        List<List<CellOwnerId>> owners = grid.cellOwners();
-
-        assertEquals(asList(asList(STARTING_OWNER, STARTING_OWNER), asList(STARTING_OWNER, STARTING_OWNER)), owners);
-    }
-
-    @Test
     public void getGridDataReturnsGridDataRepresentingTheCurrent2dArrayOfCellsThatMakeUpTheGrid() {
         Grid grid = new Grid(2, 2, STARTING_OWNER);
 
