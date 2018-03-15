@@ -14,4 +14,14 @@ public class ActiveGameState implements GameState {
     public Optional<Player> winner() {
         return Optional.empty();
     }
+
+    @Override
+    public String toString() {
+        return "ActiveGameState{}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof ActiveGameState;
+    }
 }

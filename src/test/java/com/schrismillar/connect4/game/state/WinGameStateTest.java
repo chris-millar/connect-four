@@ -25,4 +25,14 @@ public class WinGameStateTest {
         assertEquals(Optional.of(winningPlayer), winGameState.winner());
     }
 
+    @Test
+    public void equalsReturnsTrueIfHaveSameWinner() {
+        GameState otherGameState = mock(GameState.class);
+        Player winner = mock(Player.class);
+        Player otherWinner = mock(Player.class);
+        assertEquals(new WinGameState(winner), new WinGameState(winner));
+        assertNotEquals(new WinGameState(otherWinner), new WinGameState(winner));
+        assertNotEquals(otherGameState, new WinGameState(winner));
+    }
+
 }

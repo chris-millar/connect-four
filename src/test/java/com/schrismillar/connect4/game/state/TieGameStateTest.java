@@ -1,6 +1,7 @@
 package com.schrismillar.connect4.game.state;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.Optional;
 
@@ -19,6 +20,13 @@ public class TieGameStateTest {
         TieGameState tieGameState = new TieGameState();
 
         assertEquals(Optional.empty(), tieGameState.winner());
+    }
+
+    @Test
+    public void equalsReturnsTrueIfOtherIsAlsoTieGameState() {
+        GameState otherGameState = mock(GameState.class);
+        assertEquals(new TieGameState(), new TieGameState());
+        assertNotEquals(otherGameState, new TieGameState());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.schrismillar.connect4.game.state;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.Optional;
 
@@ -19,5 +20,12 @@ public class ActiveGameStateTest {
         ActiveGameState activeGameState = new ActiveGameState();
 
         assertEquals(Optional.empty(), activeGameState.winner());
+    }
+
+    @Test
+    public void equalsReturnsTrueIfOtherIsAlsoActiveGameState() {
+        GameState otherGameState = mock(GameState.class);
+        assertEquals(new ActiveGameState(), new ActiveGameState());
+        assertNotEquals(otherGameState, new ActiveGameState());
     }
 }

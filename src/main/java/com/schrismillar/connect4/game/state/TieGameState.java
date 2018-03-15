@@ -14,4 +14,14 @@ public class TieGameState implements GameState {
     public Optional<Player> winner() {
         return Optional.empty();
     }
+
+    @Override
+    public String toString() {
+        return "TieGameState{}";
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof TieGameState;
+    }
 }
