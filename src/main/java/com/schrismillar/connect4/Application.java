@@ -32,7 +32,7 @@ public class Application {
         } else if ("n".equalsIgnoreCase(next)) {
             return false;
         } else {
-            consolePrinter.println("INVALID INPUT: You must answer either y or n");
+            consolePrinter.println("INVALID INPUT: You must answer either <y> or <n>");
             return shouldPlayNewGame(consolePrinter, consoleScanner);
         }
     }
