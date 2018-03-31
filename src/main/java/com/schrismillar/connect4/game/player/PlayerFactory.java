@@ -6,6 +6,6 @@ import com.schrismillar.connect4.util.ConsoleScanner;
 
 public class PlayerFactory {
     public HumanPlayer createHumanPlayerWith(PlayerId playerId) {
-        return new HumanPlayer(playerId, new ConsolePrinter(), new ConsoleScanner());
+        return new HumanPlayer(playerId, new ConsolePrinter(), new ConsoleScanner(), playerId.name());
     }
 }

@@ -7,14 +7,16 @@ import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
 
 public class HumanPlayer implements Player {
-    private final PlayerId playerId;
     private final ConsolePrinter consolePrinter;
     private final ConsoleScanner consoleScanner;
+    private final PlayerId playerId;
+    private final String name;
 
-    public HumanPlayer(PlayerId playerId, ConsolePrinter consolePrinter, ConsoleScanner consoleScanner) {
+    public HumanPlayer(PlayerId playerId, ConsolePrinter consolePrinter, ConsoleScanner consoleScanner, String name) {
         this.playerId = playerId;
         this.consolePrinter = consolePrinter;
         this.consoleScanner = consoleScanner;
+        this.name = name;
     }
 
     @Override
@@ -23,8 +25,13 @@ public class HumanPlayer implements Player {
     }
 
     @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
     public int decideMove(List<Integer> availableColumns) {
-        consolePrinter.println(playerId + " it's your turn. Of the available columns " + availableColumns +
+        consolePrinter.println(name + ", it's your turn. Of the available columns " + availableColumns +
                 " which would you like to play in?");
         try {
             int col = consoleScanner.nextInt();
