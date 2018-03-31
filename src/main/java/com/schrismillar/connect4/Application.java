@@ -25,7 +25,7 @@ public class Application {
         ConsolePrinter consolePrinter = new ConsolePrinter();
         ConsoleScanner consoleScanner = new ConsoleScanner();
         GameFactory gameFactory = new GameFactory();
-        PlayerFactory playerFactory = new PlayerFactory();
+        PlayerFactory playerFactory = new PlayerFactory(consolePrinter, consoleScanner);
         DisplayGridPrinter displayGridPrinter = new DisplayGridPrinter(consolePrinter);
         CommandLineGameOrganizer commandLineGameOrganizer =
                 new CommandLineGameOrganizer(consolePrinter, gameFactory, playerFactory, displayGridPrinter);
