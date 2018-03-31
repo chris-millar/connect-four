@@ -24,7 +24,7 @@ public class WinGameState implements GameState {
 
     @Override
     public String message() {
-        return "The Winner is " + winner.getPlayerId() + "!";
+        return "The Winner is " + winner.getName() + "!";
     }
 
     @Override

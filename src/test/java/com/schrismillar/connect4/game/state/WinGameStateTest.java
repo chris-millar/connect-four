@@ -29,11 +29,13 @@ public class WinGameStateTest {
 
     @Test
     public void messageReturnsWinMessageThatIncludesWinningPlayersId() {
+        String playerName = "some player name";
         Player winningPlayer = mock(Player.class);
+        when(winningPlayer.getName()).thenReturn(playerName);
         when(winningPlayer.getPlayerId()).thenReturn(PlayerId.PLAYER_ONE);
         WinGameState winGameState = new WinGameState(winningPlayer);
 
-        assertEquals("The Winner is " + PlayerId.PLAYER_ONE + "!", winGameState.message());
+        assertEquals("The Winner is " + playerName + "!", winGameState.message());
     }
 
     @Test
