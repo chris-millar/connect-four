@@ -28,7 +28,7 @@ public class Application {
         PlayerFactory playerFactory = new PlayerFactory(consolePrinter, consoleScanner);
         DisplayGridPrinter displayGridPrinter = new DisplayGridPrinter(consolePrinter);
         CommandLineGameOrganizer commandLineGameOrganizer =
-                new CommandLineGameOrganizer(consolePrinter, gameFactory, playerFactory, displayGridPrinter);
+                new CommandLineGameOrganizer(consolePrinter, gameFactory, playerFactory, displayGridPrinter, null);
 
         Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
         application.start();

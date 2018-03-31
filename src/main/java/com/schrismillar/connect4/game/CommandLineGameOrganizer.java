@@ -1,6 +1,7 @@
 package com.schrismillar.connect4.game;
 
 import com.schrismillar.connect4.game.player.Player;
+import com.schrismillar.connect4.game.player.PlayerDeterminer;
 import com.schrismillar.connect4.game.player.PlayerFactory;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
@@ -12,13 +13,15 @@ public class CommandLineGameOrganizer {
     private final GameFactory gameFactory;
     private final PlayerFactory playerFactory;
     private final DisplayGridPrinter displayGridPrinter;
+    private final PlayerDeterminer playerDeterminer;
 
     public CommandLineGameOrganizer(ConsolePrinter consolePrinter, GameFactory gameFactory, PlayerFactory playerFactory,
-                                    DisplayGridPrinter displayGridPrinter) {
+                                    DisplayGridPrinter displayGridPrinter, PlayerDeterminer playerDeterminer) {
         this.consolePrinter = consolePrinter;
         this.gameFactory = gameFactory;
         this.playerFactory = playerFactory;
         this.displayGridPrinter = displayGridPrinter;
+        this.playerDeterminer = playerDeterminer;
     }
 
     public void playNewGame() {
@@ -26,6 +29,22 @@ public class CommandLineGameOrganizer {
         Player playerTwo = decidePlayer(PlayerId.PLAYER_TWO);
         Game game = beginGameWith(playerOne, playerTwo);
 
+        while(game.getCurrentGameState().isActive()) {
+            game = game.takeTurnForCurrentPlayer();
+            printGridData(game.getGridData());
+        }
+
+        consolePrinter.println(game.getCurrentGameState().message());
+    }
+
+    public Game setupNewGame() {
+        Player playerOne = playerDeterminer.determinePlayerWithId(PlayerId.PLAYER_ONE);
+        Player playerTwo = playerDeterminer.determinePlayerWithId(PlayerId.PLAYER_TWO);
+        return beginGameWith(playerOne, playerTwo);
+    }
+
+
+    public void playGame(Game game) {
         while(game.getCurrentGameState().isActive()) {
             game = game.takeTurnForCurrentPlayer();
             printGridData(game.getGridData());
