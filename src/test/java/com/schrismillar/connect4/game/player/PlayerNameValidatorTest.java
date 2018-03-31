@@ -20,16 +20,29 @@ public class PlayerNameValidatorTest {
     }
 
     @Test
+    public void isValidReturnsTrueWhenNameContainsSpaceAfterAtLeastOneAlphanumeric() {
+        assertTrue("Should be an valid name even with space as long as started with alphanumeric",
+                    playerNameValidator.isValid("abc 123"));
+    }
+
+    @Test
+    public void isValidReturnsTrueWhenNameContainsSingleValidCharacter() {
+        assertTrue("Should be an valid name even with single valid character",
+                playerNameValidator.isValid("a"));
+    }
+
+    @Test
+    public void isValidReturnsFalseWhenNameStartsWithSpace() {
+        assertFalse("Should be an invalid name because it starts with space character",
+                playerNameValidator.isValid(" abc"));
+    }
+
+    @Test
     public void isValidReturnsFalseWhenNameContainsNonAlphaNumericCharacters() {
         assertFalse("Should be an invalid name because it contains non alphanumeric characters",
                     playerNameValidator.isValid("$@^#&$"));
     }
 
-    @Test
-    public void isValidReturnsFalseWhenNameContainsWhitespace() {
-        assertFalse("Should be an invalid name because it contains whitespace",
-                    playerNameValidator.isValid("abc 123"));
-    }
 
     @Test
     public void isValidReturnsFalseWhenNameContainsBreak() {
