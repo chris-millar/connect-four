@@ -21,7 +21,7 @@ public class PlayerDeterminer {
     public Player determinePlayerWithId(PlayerId playerId) {
         consolePrinter.println("Please provide a name for " + playerId + ":");
 
-        String name = consoleScanner.next();
+        String name = consoleScanner.nextLine();
         if (playerNameValidator.isValid(name)) {
             return playerFactory.createHumanPlayerWith(playerId, name);
         } else {

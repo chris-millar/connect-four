@@ -15,7 +15,7 @@ import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
 
 public class PlayerDeterminerTest {
-    private static final String NAME = "validPlayerName";
+    private static final String NAME = "valid player name";
 
     @Mock private ConsolePrinter consolePrinter;
     @Mock private ConsoleScanner consoleScanner;
@@ -34,7 +34,7 @@ public class PlayerDeterminerTest {
 
     @Test
     public void determinePlayerReturnsHumanPlayerProvidedIdAndWithCommandLineSpecifiedName() {
-        when(consoleScanner.next()).thenReturn(NAME);
+        when(consoleScanner.nextLine()).thenReturn(NAME);
         when(playerNameValidator.isValid(NAME)).thenReturn(true);
         when(playerFactory.createHumanPlayerWith(PLAYER_ONE, NAME)).thenReturn(humanPlayer);
         InOrder consoleOrderVerifier = inOrder(consolePrinter, consoleScanner);
@@ -46,13 +46,13 @@ public class PlayerDeterminerTest {
         assertEquals(humanPlayer, (HumanPlayer) player);
 
         consoleOrderVerifier.verify(consolePrinter).println("Please provide a name for " + PLAYER_ONE + ":");
-        consoleOrderVerifier.verify(consoleScanner).next();
+        consoleOrderVerifier.verify(consoleScanner).nextLine();
     }
 
     @Test
     public void determinePlayerPrintsInvalidInputMessageAndRecursesIfInvalidPlayerName() {
         String invalidName = "not a valid player name";
-        when(consoleScanner.next()).thenReturn(invalidName).thenReturn(NAME);
+        when(consoleScanner.nextLine()).thenReturn(invalidName).thenReturn(NAME);
         when(playerNameValidator.isValid(invalidName)).thenReturn(false);
         when(playerNameValidator.isValid(NAME)).thenReturn(true);
         when(playerFactory.createHumanPlayerWith(PLAYER_ONE, NAME)).thenReturn(humanPlayer);
@@ -65,9 +65,9 @@ public class PlayerDeterminerTest {
         assertEquals(humanPlayer, (HumanPlayer) player);
 
         consoleOrderVerifier.verify(consolePrinter, times(1)).println("Please provide a name for " + PLAYER_ONE + ":");
-        consoleOrderVerifier.verify(consoleScanner, times(1)).next();
+        consoleOrderVerifier.verify(consoleScanner, times(1)).nextLine();
         consoleOrderVerifier.verify(consolePrinter, times(1)).println("INVALID INPUT: Player name must be alphaNumeric characters only.");
         consoleOrderVerifier.verify(consolePrinter, times(1)).println("Please provide a name for " + PLAYER_ONE + ":");
-        consoleOrderVerifier.verify(consoleScanner, times(1)).next();
+        consoleOrderVerifier.verify(consoleScanner, times(1)).nextLine();
     }
 }
