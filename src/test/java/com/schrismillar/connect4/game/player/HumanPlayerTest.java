@@ -4,6 +4,7 @@ import static com.schrismillar.connect4.model.PlayerId.PLAYER_ONE;
 import static com.schrismillar.connect4.model.PlayerId.PLAYER_TWO;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
@@ -91,6 +92,17 @@ public class HumanPlayerTest {
         HumanPlayer player = new HumanPlayer(PLAYER_ONE, null, null, NAME);
 
         assertEquals(NAME, player.getName());
+    }
+
+    @Test
+    public void equalsAndHashCode() {
+        HumanPlayer humanPlayer = new HumanPlayer(PLAYER_ONE, consolePrinter, consoleScanner, NAME);
+        assertEquals(new HumanPlayer(PLAYER_ONE, consolePrinter, consoleScanner, NAME), humanPlayer);
+        assertNotEquals(new HumanPlayer(PLAYER_TWO, consolePrinter, consoleScanner, NAME), humanPlayer);
+        assertNotEquals(new HumanPlayer(PLAYER_ONE, consolePrinter, consoleScanner, "other name"), humanPlayer);
+        Player otherTypeOfPlayer = mock(Player.class);
+        assertNotEquals(otherTypeOfPlayer, humanPlayer);
+        assertNotEquals("not a player", humanPlayer);
     }
 
     private String expectedInvalidInputMessage(List<Integer> availableColumns) {
