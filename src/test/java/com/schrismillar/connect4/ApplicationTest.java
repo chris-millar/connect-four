@@ -1,54 +1,73 @@
 package com.schrismillar.connect4;
 
 import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InOrder;
+import org.mockito.Mock;
 
 import com.schrismillar.connect4.game.CommandLineGameOrganizer;
+import com.schrismillar.connect4.game.Game;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
 
 public class ApplicationTest {
+
+    @Mock private CommandLineGameOrganizer commandLineGameOrganizer;
+    @Mock private ConsolePrinter consolePrinter;
+    @Mock private ConsoleScanner consoleScanner;
+
+    private Application application;
+
+    @Before
+    public void setUp() {
+        initMocks(this);
+        application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
+    }
+
     @Test
     public void startLoopsAskingIfYouWantToPlayNewGameAndPlaysItIfYouDo() {
-        ConsolePrinter consolePrinter = mock(ConsolePrinter.class);
-        ConsoleScanner consoleScanner= mock(ConsoleScanner.class);
-        CommandLineGameOrganizer commandLineGameOrganizer = mock(CommandLineGameOrganizer.class);
-        Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
+        Game game1 = mock(Game.class);
+        Game game2 = mock(Game.class);
+        when(commandLineGameOrganizer.setupNewGame()).thenReturn(game1).thenReturn(game2);
         when(consoleScanner.next()).thenReturn("y").thenReturn("y").thenReturn("n");
+        InOrder orderVerifier = inOrder(consolePrinter, commandLineGameOrganizer);
 
         application.start();
 
-        verify(consolePrinter, times(3)).println("Would you like to play a new game? <y/n>");
-        verify(commandLineGameOrganizer, times(2)).playNewGame();
+        orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
+        orderVerifier.verify(commandLineGameOrganizer).playGame(game1);
+        orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
+        orderVerifier.verify(commandLineGameOrganizer).playGame(game2);
+        orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
     }
 
     @Test
     public void startDoesNotLoopIfYouAnswerNoTheFirstTime() {
-        ConsolePrinter consolePrinter = mock(ConsolePrinter.class);
-        ConsoleScanner consoleScanner= mock(ConsoleScanner.class);
-        CommandLineGameOrganizer commandLineGameOrganizer = mock(CommandLineGameOrganizer.class);
-        Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
         when(consoleScanner.next()).thenReturn("n");
 
         application.start();
 
-        verify(consolePrinter, times(1)).println("Would you like to play a new game? <y/n>");
-        verify(commandLineGameOrganizer, never()).playNewGame();
+        verify(consolePrinter).println("Would you like to play a new game? <y/n>");
+        verify(commandLineGameOrganizer, never()).setupNewGame();
+        verify(commandLineGameOrganizer, never()).playGame(any());
     }
 
     @Test
     public void startPrintsInvalidInputMessageIfYouDoNotRespondWithYesOrNoToPlayingNewGameWillPromptForNewGameAgainUntilValidValueProvided() {
-        ConsolePrinter consolePrinter = mock(ConsolePrinter.class);
-        ConsoleScanner consoleScanner= mock(ConsoleScanner.class);
-        CommandLineGameOrganizer commandLineGameOrganizer = mock(CommandLineGameOrganizer.class);
-        Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
         when(consoleScanner.next()).thenReturn("invalid value").thenReturn("other invalid value").thenReturn("n");
+        InOrder orderVerifier = inOrder(consolePrinter);
 
         application.start();
 
-        verify(consolePrinter, times(3)).println("Would you like to play a new game? <y/n>");
-        verify(consolePrinter, times(2)).println("INVALID INPUT: You must answer either <y> or <n>");
-        verify(commandLineGameOrganizer, never()).playNewGame();
+        orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
+        orderVerifier.verify(consolePrinter).println("INVALID INPUT: You must answer either <y> or <n>");
+        orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
+        orderVerifier.verify(consolePrinter).println("INVALID INPUT: You must answer either <y> or <n>");
+        orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
+        verify(commandLineGameOrganizer, never()).setupNewGame();
+        verify(commandLineGameOrganizer, never()).playGame(any());
     }
 }

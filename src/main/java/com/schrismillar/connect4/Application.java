@@ -1,8 +1,11 @@
 package com.schrismillar.connect4;
 
 import com.schrismillar.connect4.game.CommandLineGameOrganizer;
+import com.schrismillar.connect4.game.Game;
 import com.schrismillar.connect4.game.GameFactory;
+import com.schrismillar.connect4.game.player.PlayerDeterminer;
 import com.schrismillar.connect4.game.player.PlayerFactory;
+import com.schrismillar.connect4.game.player.PlayerNameValidator;
 import com.schrismillar.connect4.ui.DisplayGridPrinter;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
@@ -27,8 +30,11 @@ public class Application {
         GameFactory gameFactory = new GameFactory();
         PlayerFactory playerFactory = new PlayerFactory(consolePrinter, consoleScanner);
         DisplayGridPrinter displayGridPrinter = new DisplayGridPrinter(consolePrinter);
+        PlayerNameValidator playerNameValidator = new PlayerNameValidator();
+        PlayerDeterminer playerDeterminer =
+                new PlayerDeterminer(consolePrinter, consoleScanner, playerNameValidator, playerFactory);
         CommandLineGameOrganizer commandLineGameOrganizer =
-                new CommandLineGameOrganizer(consolePrinter, gameFactory, playerFactory, displayGridPrinter, null);
+                new CommandLineGameOrganizer(consolePrinter, gameFactory, playerFactory, displayGridPrinter, playerDeterminer);
 
         Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
         application.start();
@@ -37,7 +43,8 @@ public class Application {
     void start() {
         while (true) {
             if (shouldPlayNewGame(consolePrinter, consoleScanner)) {
-                commandLineGameOrganizer.playNewGame();
+                Game game = commandLineGameOrganizer.setupNewGame();
+                commandLineGameOrganizer.playGame(game);
             } else {
                 return;
             }
