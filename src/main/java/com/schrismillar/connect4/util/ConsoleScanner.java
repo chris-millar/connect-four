@@ -4,15 +4,16 @@ import java.util.Scanner;
 
 public class ConsoleScanner {
 
-    public ConsoleScanner() {
-    }
-
     public int nextInt() {
         return scanner().nextInt();
     }
 
     public String next() {
         return scanner().next();
+    }
+
+    public String nextLine() {
+        return scanner().nextLine();
     }
 
     private Scanner scanner() {
