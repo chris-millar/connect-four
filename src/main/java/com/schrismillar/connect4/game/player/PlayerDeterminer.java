@@ -19,14 +19,19 @@ public class PlayerDeterminer {
     }
 
     public Player determinePlayerWithId(PlayerId playerId) {
+        String name = determinePlayerNameFor(playerId);
+        return playerFactory.createHumanPlayerWith(playerId, name);
+    }
+
+    private String determinePlayerNameFor(PlayerId playerId) {
         consolePrinter.println("Please provide a name for " + playerId + ":");
 
         String name = consoleScanner.nextLine();
         if (playerNameValidator.isValid(name)) {
-            return playerFactory.createHumanPlayerWith(playerId, name);
+            return name;
         } else {
             consolePrinter.println("INVALID INPUT: Player name must be alphaNumeric characters only.");
-            return determinePlayerWithId(playerId);
+            return determinePlayerNameFor(playerId);
         }
     }
 }
