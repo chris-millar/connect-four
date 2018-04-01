@@ -35,7 +35,14 @@ public class RandomAiPlayer implements Player {
     public int decideMove(List<Integer> availableColumns) {
         Integer column = randomElementSelector.selectFrom(availableColumns);
         consolePrinter.println(name + ", a Random AI, has decided to play in column " + column);
+        sleepSoItLooksLikeDecidingMoveTakesHumanPerceptableAmountOfTime();
         return column;
+    }
+
+    private void sleepSoItLooksLikeDecidingMoveTakesHumanPerceptableAmountOfTime() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {}
     }
 
     @Override
