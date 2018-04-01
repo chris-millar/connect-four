@@ -8,6 +8,7 @@ import com.schrismillar.connect4.game.GameFactory;
 import com.schrismillar.connect4.game.player.determiners.PlayerDeterminer;
 import com.schrismillar.connect4.game.player.PlayerFactory;
 import com.schrismillar.connect4.game.player.PlayerNameValidator;
+import com.schrismillar.connect4.game.player.determiners.PlayerNameDeterminer;
 import com.schrismillar.connect4.ui.DisplayGridPrinter;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
@@ -35,8 +36,10 @@ public class Application {
         PlayerFactory playerFactory = new PlayerFactory(consolePrinter, consoleScanner, randomElementSelector);
         DisplayGridPrinter displayGridPrinter = new DisplayGridPrinter(consolePrinter);
         PlayerNameValidator playerNameValidator = new PlayerNameValidator();
+        PlayerNameDeterminer playerNameDeterminer =
+                new PlayerNameDeterminer(consolePrinter, consoleScanner, playerNameValidator);
         PlayerDeterminer playerDeterminer =
-                new PlayerDeterminer(consolePrinter, consoleScanner, playerNameValidator, playerFactory);
+                new PlayerDeterminer(playerFactory, playerNameDeterminer);
         CommandLineGameOrganizer commandLineGameOrganizer =
                 new CommandLineGameOrganizer(consolePrinter, gameFactory, displayGridPrinter, playerDeterminer);
 
