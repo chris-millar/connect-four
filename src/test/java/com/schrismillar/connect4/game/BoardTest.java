@@ -64,8 +64,7 @@ public class BoardTest {
         Cell ownedCell1 = new Cell(2, 0, PLAYER_ONE);
         Cell ownedCell2 = new Cell(3, 0, PLAYER_ONE);
         when(grid.getColumn(0)).thenReturn(asList(unOwnedCell1, unOwnedCell2, ownedCell1, ownedCell2));
-        when(grid.assignCellAtPositionTo(1, 0, PLAYER_ONE)).
-                thenReturn(new Cell(1, 0, PLAYER_ONE));
+        when(grid.assignCellAtPositionTo(1, 0, PLAYER_ONE)).thenReturn(new Cell(1, 0, PLAYER_ONE));
         Board board = new Board(grid);
 
         Cell cell = board.dropIntoColumn(0, PLAYER_ONE);
@@ -81,8 +80,7 @@ public class BoardTest {
         Cell unOwnedCell3 = new Cell(2, 0, PlayerId.NONE);
         Cell unOwnedCell4 = new Cell(3, 0, PlayerId.NONE);
         when(grid.getColumn(0)).thenReturn(asList(unOwnedCell1, unOwnedCell2, unOwnedCell3, unOwnedCell4));
-        when(grid.assignCellAtPositionTo(3, 0, PLAYER_ONE)).
-                thenReturn(new Cell(3, 0, PLAYER_ONE));
+        when(grid.assignCellAtPositionTo(3, 0, PLAYER_ONE)).thenReturn(new Cell(3, 0, PLAYER_ONE));
         Board board = new Board(grid);
 
         Cell cell = board.dropIntoColumn(0, PLAYER_ONE);
@@ -93,14 +91,14 @@ public class BoardTest {
     @Test
     public void hasVerticalNeighborsBelowReturnsTrueIfNumberOfSpecifiedCellsBelowSpecifiedShareSameOwnerAsSpecifiedCell() {
         Grid grid = mock(Grid.class);
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_ONE);
-        Cell playerOneCell1 = new Cell(1, 0, PLAYER_ONE);
-        Cell playerOneCell2 = new Cell(2, 0, PLAYER_ONE);
-        Cell playerOneCell3 = new Cell(3, 0, PLAYER_ONE);
-        when(grid.getColumn(0)).thenReturn(asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3));
+        Cell cell0 = new Cell(0, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(1, 0, PLAYER_ONE);
+        Cell cell2 = new Cell(2, 0, PLAYER_ONE);
+        Cell cell3 = new Cell(3, 0, PLAYER_ONE);
+        when(grid.getColumn(0)).thenReturn(asList(cell0, cell1, cell2, cell3));
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell0);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, cell0);
 
         assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors below",
                 has3NeighborsBelow);
@@ -109,19 +107,18 @@ public class BoardTest {
     @Test
     public void hasVerticalNeighborsBelowReturnsTrueEvenIfSpecifiedCellIsInMiddleOfColumn() {
         Grid grid = mock(Grid.class);
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_TWO);
-        Cell playerOneCell1 = new Cell(1, 0, PLAYER_TWO);
-        Cell playerOneCell2 = new Cell(2, 0, PLAYER_ONE);
-        Cell playerOneCell3 = new Cell(3, 0, PLAYER_ONE);
-        Cell playerOneCell4 = new Cell(4, 0, PLAYER_ONE);
-        Cell playerOneCell5 = new Cell(5, 0, PLAYER_ONE);
-        Cell playerOneCell6 = new Cell(6, 0, PLAYER_TWO);
-        List<Cell> column = asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3, playerOneCell4,
-                playerOneCell5, playerOneCell6);
+        Cell cell0 = new Cell(0, 0, PLAYER_TWO);
+        Cell cell1 = new Cell(1, 0, PLAYER_TWO);
+        Cell cell2 = new Cell(2, 0, PLAYER_ONE);
+        Cell cell3 = new Cell(3, 0, PLAYER_ONE);
+        Cell cell4 = new Cell(4, 0, PLAYER_ONE);
+        Cell cell5 = new Cell(5, 0, PLAYER_ONE);
+        Cell cell6 = new Cell(6, 0, PLAYER_TWO);
+        List<Cell> column = asList(cell0, cell1, cell2, cell3, cell4, cell5, cell6);
         when(grid.getColumn(0)).thenReturn(column);
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell2);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, cell2);
 
         assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors below",
                 has3NeighborsBelow);
@@ -130,19 +127,18 @@ public class BoardTest {
     @Test
     public void hasVerticalNeighborsBelowReturnsFalseIfAnyOfSpecifiedNumberOfContiguousCellsBelowHaveDifferentOwner() {
         Grid grid = mock(Grid.class);
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_TWO);
-        Cell playerOneCell1 = new Cell(1, 0, PLAYER_TWO);
-        Cell playerOneCell2 = new Cell(2, 0, PLAYER_ONE);
-        Cell playerOneCell3 = new Cell(3, 0, PLAYER_ONE);
-        Cell playerOneCell4 = new Cell(4, 0, PLAYER_TWO);
-        Cell playerOneCell5 = new Cell(5, 0, PLAYER_ONE);
-        Cell playerOneCell6 = new Cell(6, 0, PLAYER_TWO);
-        List<Cell> column = asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3, playerOneCell4,
-                playerOneCell5, playerOneCell6);
+        Cell cell0 = new Cell(0, 0, PLAYER_TWO);
+        Cell cell1 = new Cell(1, 0, PLAYER_TWO);
+        Cell cell2 = new Cell(2, 0, PLAYER_ONE);
+        Cell cell3 = new Cell(3, 0, PLAYER_ONE);
+        Cell cell4 = new Cell(4, 0, PLAYER_TWO);
+        Cell cell5 = new Cell(5, 0, PLAYER_ONE);
+        Cell cell6 = new Cell(6, 0, PLAYER_TWO);
+        List<Cell> column = asList(cell0, cell1, cell2, cell3, cell4, cell5, cell6);
         when(grid.getColumn(0)).thenReturn(column);
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell2);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, cell2);
 
         assertFalse("Expected false because the cell specified has only 1 contiguous neighbor with same owner",
                 has3NeighborsBelow);
@@ -151,20 +147,18 @@ public class BoardTest {
     @Test
     public void hasVerticalNeighborsBelowReturnsFalseIfSpecifiedCellIsDoesNotHaveAtLeastTheSpecifiedNumberOfNeighborsBelow() {
         Grid grid = mock(Grid.class);
-        //TODO - fix all these variables that I copied, they are lying!!
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_TWO);
-        Cell playerOneCell1 = new Cell(1, 0, PLAYER_TWO);
-        Cell playerOneCell2 = new Cell(2, 0, PLAYER_ONE);
-        Cell playerOneCell3 = new Cell(3, 0, PLAYER_ONE);
-        Cell playerOneCell4 = new Cell(4, 0, PLAYER_TWO);
-        Cell playerOneCell5 = new Cell(5, 0, PLAYER_ONE);
-        Cell playerOneCell6 = new Cell(6, 0, PLAYER_TWO);
-        List<Cell> column = asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3, playerOneCell4,
-                playerOneCell5, playerOneCell6);
+        Cell cell0 = new Cell(0, 0, PLAYER_TWO);
+        Cell cell1 = new Cell(1, 0, PLAYER_TWO);
+        Cell cell2 = new Cell(2, 0, PLAYER_ONE);
+        Cell cell3 = new Cell(3, 0, PLAYER_ONE);
+        Cell cell4 = new Cell(4, 0, PLAYER_TWO);
+        Cell cell5 = new Cell(5, 0, PLAYER_ONE);
+        Cell cell6 = new Cell(6, 0, PLAYER_TWO);
+        List<Cell> column = asList(cell0, cell1, cell2, cell3, cell4, cell5, cell6);
         when(grid.getColumn(0)).thenReturn(column);
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, playerOneCell4);
+        boolean has3NeighborsBelow = board.hasVerticalNeighborsBelowBelongingToSameOwnerAs(3, cell4);
 
         assertFalse("Expected false because specified cell has only 2 neighbors below but we asked if it had 3 with same owner",
                 has3NeighborsBelow);
@@ -173,14 +167,14 @@ public class BoardTest {
     @Test
     public void hasHorizontalNeighborsReturnsTrueIfNumberOfSpecifiedCellsToRightShareSameOwnerAsSpecifiedCell() {
         Grid grid = mock(Grid.class);
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_ONE);
-        Cell playerOneCell1 = new Cell(0, 1, PLAYER_ONE);
-        Cell playerOneCell2 = new Cell(0, 2, PLAYER_ONE);
-        Cell playerOneCell3 = new Cell(0, 3, PLAYER_ONE);
-        when(grid.getRow(0)).thenReturn(asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3));
+        Cell cell0 = new Cell(0, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(0, 1, PLAYER_ONE);
+        Cell cell2 = new Cell(0, 2, PLAYER_ONE);
+        Cell cell3 = new Cell(0, 3, PLAYER_ONE);
+        when(grid.getRow(0)).thenReturn(asList(cell0, cell1, cell2, cell3));
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, playerOneCell0);
+        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, cell0);
 
         assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors to right",
                 has3NeighborsBelow);
@@ -189,14 +183,14 @@ public class BoardTest {
     @Test
     public void hasHorizontalNeighborsReturnsTrueIfNumberOfSpecifiedCellsToLeftShareSameOwnerAsSpecifiedCell() {
         Grid grid = mock(Grid.class);
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_ONE);
-        Cell playerOneCell1 = new Cell(0, 1, PLAYER_ONE);
-        Cell playerOneCell2 = new Cell(0, 2, PLAYER_ONE);
-        Cell playerOneCell3 = new Cell(0, 3, PLAYER_ONE);
-        when(grid.getRow(0)).thenReturn(asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3));
+        Cell cell0 = new Cell(0, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(0, 1, PLAYER_ONE);
+        Cell cell2 = new Cell(0, 2, PLAYER_ONE);
+        Cell cell3 = new Cell(0, 3, PLAYER_ONE);
+        when(grid.getRow(0)).thenReturn(asList(cell0, cell1, cell2, cell3));
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, playerOneCell3);
+        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, cell3);
 
         assertTrue("Expected it to be true because the cell specified has 3 consecutive neighbors to left",
                 has3NeighborsBelow);
@@ -205,14 +199,14 @@ public class BoardTest {
     @Test
     public void hasHorizontalNeighborsReturnsTrueIfNumberOfSpecifiedCellsToLeftOrRightShareSameOwnerAsSpecifiedCell() {
         Grid grid = mock(Grid.class);
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_ONE);
-        Cell playerOneCell1 = new Cell(0, 1, PLAYER_ONE);
-        Cell playerOneCell2 = new Cell(0, 2, PLAYER_ONE);
-        Cell playerOneCell3 = new Cell(0, 3, PLAYER_ONE);
-        when(grid.getRow(0)).thenReturn(asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3));
+        Cell cell0 = new Cell(0, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(0, 1, PLAYER_ONE);
+        Cell cell2 = new Cell(0, 2, PLAYER_ONE);
+        Cell cell3 = new Cell(0, 3, PLAYER_ONE);
+        when(grid.getRow(0)).thenReturn(asList(cell0, cell1, cell2, cell3));
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, playerOneCell2);
+        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, cell2);
 
         assertTrue("Expected it to be true because the cell specified has 2 consecutive neighbors to left and 1 to right",
                 has3NeighborsBelow);
@@ -221,19 +215,18 @@ public class BoardTest {
     @Test
     public void hasHorizontalNeighborsReturnsFalseIfNotEnoughConsecutiveSameOwnersInEitherDirection() {
         Grid grid = mock(Grid.class);
-        Cell playerOneCell0 = new Cell(0, 0, PLAYER_ONE);
-        Cell playerOneCell1 = new Cell(0, 1, PLAYER_ONE);
-        Cell playerOneCell2 = new Cell(0, 2, PLAYER_TWO);
-        Cell playerOneCell3 = new Cell(0, 3, PLAYER_TWO);
-        Cell playerOneCell4 = new Cell(0, 4, PLAYER_TWO);
-        Cell playerOneCell5 = new Cell(0, 5, PLAYER_ONE);
-        Cell playerOneCell6 = new Cell(0, 6, PLAYER_ONE);
-        List<Cell> row = asList(playerOneCell0, playerOneCell1, playerOneCell2, playerOneCell3, playerOneCell4,
-                                playerOneCell5, playerOneCell6);
+        Cell cell0 = new Cell(0, 0, PLAYER_ONE);
+        Cell cell1 = new Cell(0, 1, PLAYER_ONE);
+        Cell cell2 = new Cell(0, 2, PLAYER_TWO);
+        Cell cell3 = new Cell(0, 3, PLAYER_TWO);
+        Cell cell4 = new Cell(0, 4, PLAYER_TWO);
+        Cell cell5 = new Cell(0, 5, PLAYER_ONE);
+        Cell cell6 = new Cell(0, 6, PLAYER_ONE);
+        List<Cell> row = asList(cell0, cell1, cell2, cell3, cell4, cell5, cell6);
         when(grid.getRow(0)).thenReturn(row);
         Board board = new Board(grid);
 
-        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, playerOneCell3);
+        boolean has3NeighborsBelow = board.hasHorizontalNeighborsBelongingToSameOwnerAs(3, cell3);
 
         assertFalse("Expected it to be false because the cell specified has 1 neighbors to left and right but we needed 3 total",
                 has3NeighborsBelow);
