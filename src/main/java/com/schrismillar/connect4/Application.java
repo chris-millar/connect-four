@@ -9,6 +9,7 @@ import com.schrismillar.connect4.game.player.determiners.PlayerDeterminer;
 import com.schrismillar.connect4.game.player.PlayerFactory;
 import com.schrismillar.connect4.game.player.PlayerNameValidator;
 import com.schrismillar.connect4.game.player.determiners.PlayerNameDeterminer;
+import com.schrismillar.connect4.game.player.determiners.PlayerTypeDeterminer;
 import com.schrismillar.connect4.ui.DisplayGridPrinter;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
@@ -38,8 +39,9 @@ public class Application {
         PlayerNameValidator playerNameValidator = new PlayerNameValidator();
         PlayerNameDeterminer playerNameDeterminer =
                 new PlayerNameDeterminer(consolePrinter, consoleScanner, playerNameValidator);
+        PlayerTypeDeterminer playerTypeDeterminer = new PlayerTypeDeterminer(consolePrinter, consoleScanner, playerFactory);
         PlayerDeterminer playerDeterminer =
-                new PlayerDeterminer(playerFactory, playerNameDeterminer);
+                new PlayerDeterminer(playerNameDeterminer, playerTypeDeterminer);
         CommandLineGameOrganizer commandLineGameOrganizer =
                 new CommandLineGameOrganizer(consolePrinter, gameFactory, displayGridPrinter, playerDeterminer);
 
