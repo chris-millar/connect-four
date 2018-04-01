@@ -1,5 +1,7 @@
 package com.schrismillar.connect4;
 
+import java.util.Random;
+
 import com.schrismillar.connect4.game.CommandLineGameOrganizer;
 import com.schrismillar.connect4.game.Game;
 import com.schrismillar.connect4.game.GameFactory;
@@ -9,6 +11,7 @@ import com.schrismillar.connect4.game.player.PlayerNameValidator;
 import com.schrismillar.connect4.ui.DisplayGridPrinter;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
+import com.schrismillar.connect4.util.RandomElementSelector;
 
 public class Application {
 
@@ -28,7 +31,8 @@ public class Application {
         ConsolePrinter consolePrinter = new ConsolePrinter();
         ConsoleScanner consoleScanner = new ConsoleScanner();
         GameFactory gameFactory = new GameFactory();
-        PlayerFactory playerFactory = new PlayerFactory(consolePrinter, consoleScanner);
+        RandomElementSelector randomElementSelector = new RandomElementSelector(new Random());
+        PlayerFactory playerFactory = new PlayerFactory(consolePrinter, consoleScanner, randomElementSelector);
         DisplayGridPrinter displayGridPrinter = new DisplayGridPrinter(consolePrinter);
         PlayerNameValidator playerNameValidator = new PlayerNameValidator();
         PlayerDeterminer playerDeterminer =
