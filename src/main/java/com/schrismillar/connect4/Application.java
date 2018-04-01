@@ -34,7 +34,7 @@ public class Application {
         PlayerDeterminer playerDeterminer =
                 new PlayerDeterminer(consolePrinter, consoleScanner, playerNameValidator, playerFactory);
         CommandLineGameOrganizer commandLineGameOrganizer =
-                new CommandLineGameOrganizer(consolePrinter, gameFactory, playerFactory, displayGridPrinter, playerDeterminer);
+                new CommandLineGameOrganizer(consolePrinter, gameFactory, displayGridPrinter, playerDeterminer);
 
         Application application = new Application(consolePrinter, consoleScanner, commandLineGameOrganizer);
         application.start();
