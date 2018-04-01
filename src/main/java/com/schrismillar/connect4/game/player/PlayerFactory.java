@@ -13,10 +13,6 @@ public class PlayerFactory {
         this.consoleScanner = consoleScanner;
     }
 
-    public HumanPlayer createHumanPlayerWith(PlayerId playerId) {
-        return new HumanPlayer(playerId, consolePrinter, consoleScanner, playerId.name());
-    }
-
     public HumanPlayer createHumanPlayerWith(PlayerId playerId, String name) {
         return new HumanPlayer(playerId, consolePrinter, consoleScanner, name);
     }
