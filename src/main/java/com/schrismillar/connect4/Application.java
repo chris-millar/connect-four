@@ -5,7 +5,7 @@ import java.util.Random;
 import com.schrismillar.connect4.game.CommandLineGameOrganizer;
 import com.schrismillar.connect4.game.Game;
 import com.schrismillar.connect4.game.GameFactory;
-import com.schrismillar.connect4.game.player.PlayerDeterminer;
+import com.schrismillar.connect4.game.player.determiners.PlayerDeterminer;
 import com.schrismillar.connect4.game.player.PlayerFactory;
 import com.schrismillar.connect4.game.player.PlayerNameValidator;
 import com.schrismillar.connect4.ui.DisplayGridPrinter;

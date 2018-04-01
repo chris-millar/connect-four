@@ -1,5 +1,8 @@
-package com.schrismillar.connect4.game.player;
+package com.schrismillar.connect4.game.player.determiners;
 
+import com.schrismillar.connect4.game.player.Player;
+import com.schrismillar.connect4.game.player.PlayerFactory;
+import com.schrismillar.connect4.game.player.PlayerNameValidator;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;

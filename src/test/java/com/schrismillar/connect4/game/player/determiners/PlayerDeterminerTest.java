@@ -1,4 +1,4 @@
-package com.schrismillar.connect4.game.player;
+package com.schrismillar.connect4.game.player.determiners;
 
 import static com.schrismillar.connect4.model.PlayerId.PLAYER_ONE;
 import static org.junit.Assert.assertEquals;
@@ -11,6 +11,10 @@ import org.junit.Test;
 import org.mockito.InOrder;
 import org.mockito.Mock;
 
+import com.schrismillar.connect4.game.player.HumanPlayer;
+import com.schrismillar.connect4.game.player.Player;
+import com.schrismillar.connect4.game.player.PlayerFactory;
+import com.schrismillar.connect4.game.player.PlayerNameValidator;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
 

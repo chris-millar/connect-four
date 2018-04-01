@@ -1,7 +1,7 @@
 package com.schrismillar.connect4.game;
 
 import com.schrismillar.connect4.game.player.Player;
-import com.schrismillar.connect4.game.player.PlayerDeterminer;
+import com.schrismillar.connect4.game.player.determiners.PlayerDeterminer;
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.DisplayGridPrinter;

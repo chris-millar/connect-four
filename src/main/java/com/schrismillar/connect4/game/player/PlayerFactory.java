@@ -17,11 +17,11 @@ public class PlayerFactory {
         this.randomElementSelector = randomElementSelector;
     }
 
-    HumanPlayer createHumanPlayerWith(PlayerId playerId, String name) {
+    public HumanPlayer createHumanPlayerWith(PlayerId playerId, String name) {
         return new HumanPlayer(playerId, consolePrinter, consoleScanner, name);
     }
 
-    RandomAiPlayer createRandomAiPlayerWith(PlayerId playerId, String name) {
+    public RandomAiPlayer createRandomAiPlayerWith(PlayerId playerId, String name) {
         return new RandomAiPlayer(playerId, name, consolePrinter, randomElementSelector);
     }
 }

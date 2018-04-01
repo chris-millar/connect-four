@@ -12,7 +12,7 @@ import org.mockito.InOrder;
 import org.mockito.Mock;
 
 import com.schrismillar.connect4.game.player.HumanPlayer;
-import com.schrismillar.connect4.game.player.PlayerDeterminer;
+import com.schrismillar.connect4.game.player.determiners.PlayerDeterminer;
 import com.schrismillar.connect4.game.state.ActiveGameState;
 import com.schrismillar.connect4.game.state.GameState;
 import com.schrismillar.connect4.model.GridData;
