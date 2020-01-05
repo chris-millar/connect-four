@@ -1,5 +1,8 @@
 package com.schrismillar.connect4.game;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.schrismillar.connect4.game.player.Player;
 import com.schrismillar.connect4.game.player.determiners.PlayerDeterminer;
 import com.schrismillar.connect4.model.GridData;
@@ -7,12 +10,14 @@ import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.ui.DisplayGridPrinter;
 import com.schrismillar.connect4.util.ConsolePrinter;
 
+@Component
 public class CommandLineGameOrganizer {
     private final ConsolePrinter consolePrinter;
     private final GameFactory gameFactory;
     private final DisplayGridPrinter displayGridPrinter;
     private final PlayerDeterminer playerDeterminer;
 
+    @Autowired
     public CommandLineGameOrganizer(ConsolePrinter consolePrinter, GameFactory gameFactory,
                                     DisplayGridPrinter displayGridPrinter, PlayerDeterminer playerDeterminer) {
         this.consolePrinter = consolePrinter;

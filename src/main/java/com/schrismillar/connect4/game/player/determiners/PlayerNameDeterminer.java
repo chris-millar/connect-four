@@ -1,15 +1,20 @@
 package com.schrismillar.connect4.game.player.determiners;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.schrismillar.connect4.game.player.PlayerNameValidator;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
 
+@Component
 public class PlayerNameDeterminer {
     private final ConsolePrinter consolePrinter;
     private final ConsoleScanner consoleScanner;
     private final PlayerNameValidator playerNameValidator;
 
+    @Autowired
     public PlayerNameDeterminer(ConsolePrinter consolePrinter, ConsoleScanner consoleScanner,
                                 PlayerNameValidator playerNameValidator) {
         this.consolePrinter = consolePrinter;

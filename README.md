@@ -11,8 +11,8 @@ mvn package
 
 ## To run the app:
 - In order to play, you will need to use a terminal that [supports ANSI escape codes](https://en.wikipedia.org/wiki/ANSI_escape_code#Platform_support).
-Mostly this this means don't use Windows command prompt to run this! If you are on windows please use a unix-like terminal, such as [git bash](https://git-scm.com/downloads).
-- Once you have built the app, you can run using the following command:
+Mostly this means don't use Windows command prompt to run this! If you are on windows please use a unix-like terminal, such as [git bash](https://git-scm.com/downloads).
+- using spring boot:
 ```
-java -jar target/connect-four-1.0.jar
+mvn spring-boot:run
 ```

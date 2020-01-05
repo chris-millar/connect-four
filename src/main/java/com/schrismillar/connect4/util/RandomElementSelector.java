@@ -3,10 +3,15 @@ package com.schrismillar.connect4.util;
 import java.util.List;
 import java.util.Random;
 
-public class RandomElementSelector {
-    private final Random random;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-    public RandomElementSelector(Random random)  {
+@Component
+public class RandomElementSelector {
+    private final RandomWrapper random;
+
+    @Autowired
+    public RandomElementSelector(RandomWrapper random)  {
         this.random = random;
     }
 

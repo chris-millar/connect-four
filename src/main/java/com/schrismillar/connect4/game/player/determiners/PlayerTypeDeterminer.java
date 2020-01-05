@@ -1,16 +1,21 @@
 package com.schrismillar.connect4.game.player.determiners;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.schrismillar.connect4.game.player.Player;
 import com.schrismillar.connect4.game.player.PlayerFactory;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.util.ConsolePrinter;
 import com.schrismillar.connect4.util.ConsoleScanner;
 
+@Component
 public class PlayerTypeDeterminer {
     private final ConsolePrinter consolePrinter;
     private final ConsoleScanner consoleScanner;
     private final PlayerFactory playerFactory;
 
+    @Autowired
     public PlayerTypeDeterminer(ConsolePrinter consolePrinter, ConsoleScanner consoleScanner, PlayerFactory playerFactory) {
         this.consolePrinter = consolePrinter;
         this.consoleScanner = consoleScanner;

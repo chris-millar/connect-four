@@ -1,5 +1,8 @@
 package com.schrismillar.connect4.util;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ConsolePrinter {
 
     public void println(String string) {

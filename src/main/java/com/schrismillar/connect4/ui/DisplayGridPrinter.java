@@ -1,9 +1,13 @@
 package com.schrismillar.connect4.ui;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.schrismillar.connect4.model.GridData;
 import com.schrismillar.connect4.model.PlayerId;
 import com.schrismillar.connect4.util.ConsolePrinter;
 
+@Component
 public class DisplayGridPrinter {
     private static final DisplayCell EMPTY_DISPLAY_CELL = new EmptyDisplayCell();
     private static final DisplayCell RED_DISPLAY_CELL = new RedDisplayCell();
@@ -24,6 +28,7 @@ public class DisplayGridPrinter {
 
     private final ConsolePrinter consolePrinter;
 
+    @Autowired
     public DisplayGridPrinter(ConsolePrinter consolePrinter) {
         this.consolePrinter = consolePrinter;
     }

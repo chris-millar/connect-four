@@ -28,14 +28,14 @@ public class ApplicationTest {
     }
 
     @Test
-    public void startLoopsAskingIfYouWantToPlayNewGameAndPlaysItIfYouDo() {
+    public void startLoopsAskingIfYouWantToPlayNewGameAndPlaysItIfYouDo() throws Exception {
         Game game1 = mock(Game.class);
         Game game2 = mock(Game.class);
         when(commandLineGameOrganizer.setupNewGame()).thenReturn(game1).thenReturn(game2);
         when(consoleScanner.next()).thenReturn("y").thenReturn("y").thenReturn("n");
         InOrder orderVerifier = inOrder(consolePrinter, commandLineGameOrganizer);
 
-        application.start();
+        application.run();
 
         orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
         orderVerifier.verify(commandLineGameOrganizer).playGame(game1);
@@ -45,10 +45,10 @@ public class ApplicationTest {
     }
 
     @Test
-    public void startDoesNotLoopIfYouAnswerNoTheFirstTime() {
+    public void startDoesNotLoopIfYouAnswerNoTheFirstTime() throws Exception {
         when(consoleScanner.next()).thenReturn("n");
 
-        application.start();
+        application.run();
 
         verify(consolePrinter).println("Would you like to play a new game? <y/n>");
         verify(commandLineGameOrganizer, never()).setupNewGame();
@@ -56,11 +56,11 @@ public class ApplicationTest {
     }
 
     @Test
-    public void startPrintsInvalidInputMessageIfYouDoNotRespondWithYesOrNoToPlayingNewGameWillPromptForNewGameAgainUntilValidValueProvided() {
+    public void startPrintsInvalidInputMessageIfYouDoNotRespondWithYesOrNoToPlayingNewGameWillPromptForNewGameAgainUntilValidValueProvided() throws Exception {
         when(consoleScanner.next()).thenReturn("invalid value").thenReturn("other invalid value").thenReturn("n");
         InOrder orderVerifier = inOrder(consolePrinter);
 
-        application.start();
+        application.run();
 
         orderVerifier.verify(consolePrinter).println("Would you like to play a new game? <y/n>");
         orderVerifier.verify(consolePrinter).println("INVALID INPUT: You must answer either <y> or <n>");

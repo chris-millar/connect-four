@@ -12,7 +12,7 @@ public class RandomElementSelectorTest {
 
     @Test
     public void selectFromReturnsRandomElementFromList() {
-        Random random = mock(Random.class);
+        RandomWrapper random = mock(RandomWrapper.class);
         when(random.nextInt(4)).thenReturn(1);
         RandomElementSelector randomElementSelector = new RandomElementSelector(random);
 
