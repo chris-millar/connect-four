@@ -13,17 +13,14 @@ import com.schrismillar.connect4.util.ConsoleScanner;
 @SpringBootApplication
 public class Application implements CommandLineRunner {
 
-    private final ConsolePrinter consolePrinter;
-    private final ConsoleScanner consoleScanner;
     private final CommandLineGameOrganizer commandLineGameOrganizer;
+    private final ShouldPlayNewGame shouldPlayNewGame;
 
     @Autowired
-    Application(ConsolePrinter consolePrinter,
-                ConsoleScanner consoleScanner,
-                CommandLineGameOrganizer commandLineGameOrganizer) {
-        this.consolePrinter = consolePrinter;
-        this.consoleScanner = consoleScanner;
+    Application(CommandLineGameOrganizer commandLineGameOrganizer,
+                ShouldPlayNewGame shouldPlayNewGame) {
         this.commandLineGameOrganizer = commandLineGameOrganizer;
+        this.shouldPlayNewGame = shouldPlayNewGame;
     }
 
     public static void main(String[] args) {
@@ -33,7 +30,7 @@ public class Application implements CommandLineRunner {
     @Override
     public void run(String... strings) throws Exception {
         while (true) {
-            if (ShouldPlayNewGame.call(consolePrinter, consoleScanner)) {
+            if (shouldPlayNewGame.call()) {
                 Game game = commandLineGameOrganizer.setupNewGame();
                 commandLineGameOrganizer.playGame(game);
             } else {
